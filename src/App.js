@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import PostsContainer from "./pages/PostsContainer";
 
 function App() {
+  console.log("App"); // test
   return (
     <BrowserRouter>
       <Header />
