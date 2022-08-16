@@ -1,0 +1,49 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "첫 번째 게시글입니다.",
+      "username": "원중희",
+      "date": "2022-08-13"
+    },
+    {
+      "id": 2,
+      "title": "두 번째 게시글입니다.",
+      "username": "원중희",
+      "date": "2022-08-14"
+    },
+    {
+      "id": 3,
+      "title": "세 번째 게시글입니다.",
+      "username": "원중희",
+      "date": "2022-08-15"
+    },
+    {
+      "id": 4,
+      "title": "네 번째 게시글입니다.",
+      "username": "원중희",
+      "date": "2022-08-16"
+    },
+    {
+      "id": 5,
+      "title": "다섯 번째 게시글입니다.",
+      "username": "원중희",
+      "date": "2022-08-17"
+    },
+    {
+      "id": 6,
+      "title": "여섯 번째 게시글입니다.",
+      "username": "원중희",
+      "date": "2022-08-18"
+    }
+  ],
+  "profiles": {
+    "username": "wndgml13",
+    "nickname": {
+      "name": "ㄴㅇㄹㄴㅇㄹㅇㄴㄹ"
+    },
+    "pastpassword": "이전 비밀번호",
+    "newpassword": "새로운 비밀번호",
+    "confirmpassword": "비밀번호 확인"
+  }
+}
