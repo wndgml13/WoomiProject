@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 import React from "react";
 
 function App() {
-  
   return (
     // <PostsContainer/>
     <BrowserRouter>
