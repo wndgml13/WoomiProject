@@ -1,4 +1,4 @@
-import Tab from "./Tab";
+// import Tab from "./Tab";
 
 export default function Header() {
   console.log("Header");
@@ -7,7 +7,7 @@ export default function Header() {
     <>
       <span>우엠아이</span>
       <button>로그인/로그아웃</button>
-      <Tab />
+      {/* <Tab /> */}
     </>
   );
 }
