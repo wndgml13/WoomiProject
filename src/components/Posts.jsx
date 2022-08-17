@@ -32,13 +32,14 @@ export default function Posts() {
           return (
           <List_Container>
             <Post_List >{infos.id}</Post_List>
+            <Post_List >{infos.boardname}</Post_List>
             <Post_List >
               <Link to="/Detail">
               {infos.title}
               </Link>
               </Post_List>
             <Post_List>{infos.username}</Post_List>
-            <Post_List>{infos.date}</Post_List>
+            <Post_List>{infos.createdate}</Post_List>
           </List_Container>
           );
         })}
