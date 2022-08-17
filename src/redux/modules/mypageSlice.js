@@ -2,19 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-// export const __mp = createAsyncThunk(
-// 	// 첫번째 인자 : action value
-//   "mp", 
-// 	// 두번째 인자 : 콜백함수 
-//   (payload, thunkAPI) => {
-//     setTimeout(() => {
-//       thunkAPI.dispatch(mp(payload));
-//     }, 3000);
-//   }
-// );
-
 const initialState = {
-    mypage: [],
+    mypage: null,
     isFinish: false,
     isLoading: false,
     error: null,

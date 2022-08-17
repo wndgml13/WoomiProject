@@ -39,11 +39,8 @@
   ],
   "profiles": {
     "username": "wndgml13",
-    "nickname": {
-      "name": "ㄴㅇㄹㄴㅇㄹㅇㄴㄹ"
-    },
-    "pastpassword": "이전 비밀번호",
-    "newpassword": "새로운 비밀번호",
-    "confirmpassword": "비밀번호 확인"
+    "nickname": "뉴 닉네임",
+    "pastpassword": "이전 패스워드",
+    "newpassword": "뉴 패스워드 "
   }
 }

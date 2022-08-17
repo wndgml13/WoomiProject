@@ -5,53 +5,27 @@ import axios from "axios";
 import React, { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-
+// http://jdh3340.shop/api/board/es
 
 
 export default function Posts() {
+  // const param = useParams();
   const [info, setInfo] = useState(null);
-  
-
-  // const dispatch = useDispatch();
+  // console.log(param);
 
   const navigate = useNavigate();
-  
-  // const posts = useSelector((state) => state.posts);
   
   const fetchInfo = async () => {
     const {data} = await axios.get('http://localhost:3001/posts'); // ${boadname}
     setInfo(data);
   }
 
-  // const getposts = (info) => {
-  //   axios.post('http://localhost:3001/posts', getposts)
-  // };
-
-  // const onSubmitHandler = (post) => {
-  //   axios.post("http://localhost:3001/posts", post);
-  // };
-
   useEffect(() => {
     fetchInfo();
   }, []);
-  // const {isLoading, error, posts} = useSelector((state) => state.posts);
-  // console.log(posts);
-  // const [info, setInfo] = useState(null);
-  // const [addinfo, setAddInfo] = useState({
-  //   id: 1,
-  //   title: "",
-  //   username: "",
-  //   date: ""
-  // });
-
-  // const onClickImg = () => {
-  //   return <navigate to="/Detail" />;
-  //   }
-
-
   
-
   return (
     <>
       {info?.map(infos => {
@@ -68,7 +42,6 @@ export default function Posts() {
           </List_Container>
           );
         })}
-        
           <Post_btn 
             onClick={() => {
               navigate("/Addpost");
