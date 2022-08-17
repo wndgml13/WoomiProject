@@ -1,6 +1,9 @@
-import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
+import styled from "styled-components";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 export default function SignUp() {
   const [userId, setUserId] = useState("");
@@ -48,15 +51,12 @@ export default function SignUp() {
   };
 
   const onChangeNickName = (event) => {
+    if (!event.target.value) {
+      setNickNameError(false);
+    } else {
+      setNickNameError(true);
+    }
     setNickName(event.target.value);
-    // if (!event.target.value) {
-    //   console.log("skdkdk");
-    //   setNickNameError(false);
-    // } else {
-    //   console.log("asdasdas");
-    //   setNickNameError(true);
-    // }
-    // setNickName(event.target.value);
   };
 
   const validation = () => {
@@ -80,126 +80,148 @@ export default function SignUp() {
 
   const onSubmitHandler = async () => {
     if (validation()) {
-      console.log(userId, password, nickname);
-
       try {
         const res = await axios.post("http://jdh3340.shop/api/user/register", {
           username: userId,
           password,
           nickname,
         });
-        console.log(res);
       } catch (error) {
-        console.log(error);
         throw new Error(error);
       }
-
+      alert("회원 가입 완료하였습니다!!");
+      setUserId("");
+      setPassword("");
+      setCheckPassword("");
+      setNickName("");
       return;
+    } else {
+      alert("입력 정보를 다시 확인하세요!!");
     }
-    // 실패 -> alert 창으로 실패 알림
   };
 
   return (
     <SignUpBox>
-      <div>회원 가입!!</div>
-      <SignUpID>
-        <IDInput
-          maxLength={10}
-          placeholder="UserID"
-          value={userId}
-          onChange={onChangeUserId}
-        />
-        {userIdError && (
-          <div className="invalid-input">
-            사용자 ID는 5자 이상이어야 하며 문자 또는 숫자를 포함해야 합니다.
-          </div>
+      <BoxGroup
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "50ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        {userIdError ? (
+          <TextField
+            error
+            id="userId_error"
+            label="UserID*"
+            value={userId}
+            onChange={onChangeUserId}
+            helperText="사용자 ID는 5자 이상이어야 하며 문자 또는 숫자를 포함해야 합니다."
+          />
+        ) : (
+          <TextField
+            id="userId"
+            label="UserID*"
+            variant="outlined"
+            value={userId}
+            onChange={onChangeUserId}
+          />
         )}
-      </SignUpID>
+      </BoxGroup>
 
-      <SignUpPW>
-        <PWInput
-          maxLength={10}
-          placeholder="Password"
-          value={password}
-          type="password"
-          onChange={onChangePassword}
-        />
-        {passwordError && (
-          <div className="invalid-input">
-            비밀번호는 8자 이상이어야 하며 1자 이상을 포함해야 합니다. 문자와
-            숫자 하나.{" "}
-          </div>
+      <BoxGroup
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "50ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        {passwordError ? (
+          <TextField
+            error
+            id="password_error"
+            label="Password*"
+            onChange={onChangePassword}
+            value={password}
+            type="password"
+            helperText="비밀번호는 8자 이상이어야 하며 1자 이상을 포함해야 합니다. 문자와 숫자 하나."
+          />
+        ) : (
+          <TextField
+            id="password"
+            label="Password*"
+            variant="outlined"
+            onChange={onChangePassword}
+            value={password}
+            type="password"
+          />
         )}
-      </SignUpPW>
-
-      <SignUpChkPW>
-        <ChkPWInput
-          maxLength={10}
-          placeholder="CheckPassword"
-          value={checkPassword}
-          type="password"
-          onChange={onChangeCheckPassword}
-        />
-        {checkPasswordError && (
-          <div className="invalid-input">비밀번호가 일치하지 않습니다.</div>
+      </BoxGroup>
+      <BoxGroup
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "50ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        {checkPasswordError ? (
+          <TextField
+            error
+            id="checkpassword_error"
+            label="CheckPassword*"
+            onChange={onChangeCheckPassword}
+            value={checkPassword}
+            type="password"
+            helperText="비밀번호가 일치하지 않습니다."
+          />
+        ) : (
+          <TextField
+            id="checkpassowrd"
+            label="CheckPassword*"
+            variant="outlined"
+            value={checkPassword}
+            type="password"
+            onChange={onChangeCheckPassword}
+          />
         )}
-      </SignUpChkPW>
-
-      <SignUpNickName>
-        <NickNameInput
-          maxLength={10}
-          placeholder="NickName"
+      </BoxGroup>
+      <BoxGroup
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "50ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="nickname"
+          label="NickName"
+          variant="outlined"
           value={nickname}
           onChange={onChangeNickName}
         />
-      </SignUpNickName>
-
-      <SignBtn onClick={onSubmitHandler}>회원가입 완료 버튼</SignBtn>
+      </BoxGroup>
+      <BoxGroup>
+        <SignUpBtn variant="outlined" onClick={onSubmitHandler}>
+          회원 가입
+        </SignUpBtn>
+      </BoxGroup>
     </SignUpBox>
   );
 }
+const BoxGroup = styled(Box)`
+  text-align: center;
+`;
+
+const SignUpBtn = styled(Button)`
+  width: 500px;
+  height: 45px;
+`;
 
 const SignUpBox = styled.div`
   width: 660px;
-  height: 530px;
-  border: 1px solid black;
   margin: auto;
 `;
-
-const SignUpID = styled.div`
-  text-align: center;
-`;
-
-const IDInput = styled.input`
-  width: 500px;
-`;
-
-const SignUpPW = styled.div`
-  text-align: center;
-`;
-
-const PWInput = styled.input`
-  width: 500px;
-`;
-const SignUpChkPW = styled.div`
-  text-align: center;
-`;
-
-const ChkPWInput = styled.input`
-  width: 500px;
-`;
-const SignUpNickName = styled.div`
-  text-align: center;
-`;
-
-const NickNameInput = styled.input`
-  width: 500px;
-`;
-const SignBtn = styled.button`
-  display: block;
-  width: 500px;
-  margin: auto;
-`;
-
-// Access to XMLHttpRequest at 'http://jdh3340.shop/api/user/register' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
-// Uncaught (in promise) Error: AxiosError: Network Error at onSubmitHandler

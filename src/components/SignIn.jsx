@@ -4,6 +4,10 @@ import styled from "styled-components";
 import axios from "axios";
 import { setAccessToken } from "../storage/Cookie";
 
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+
 export default function SignIn() {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
@@ -22,11 +26,8 @@ export default function SignIn() {
   };
 
   const login = async () => {
-    // email : eve.holt@reqres.in
-    // password : cityslicka
     console.log("login!!", loginInfo);
     try {
-      // axios으로 로그인 요청 (post)
       let res = await axios({
         method: "POST",
         url: "http://jdh3340.shop/login",
@@ -43,22 +44,53 @@ export default function SignIn() {
       ] = `${res.headers.authorization}`;
       return navigate("/");
     } catch (err) {
-      console.log(err);
       throw new Error(err);
     }
   };
 
   return (
     <SignInBox>
-      <div>로그인!!</div>
-      <input value={username} name="username" onChange={onChangeHandler} />
-      <input
-        value={password}
-        name="password"
-        type="password"
-        onChange={onChangeHandler}
-      />
-      <button onClick={login}>로그인수행 버튼</button>
+      <BoxGroup
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "50ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="userId"
+          label="UserID"
+          variant="outlined"
+          value={username}
+          name="username"
+          onChange={onChangeHandler}
+        />
+      </BoxGroup>
+
+      <BoxGroup
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "50ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="password"
+          label="Password"
+          variant="outlined"
+          value={password}
+          name="password"
+          type="password"
+          onChange={onChangeHandler}
+        />
+      </BoxGroup>
+      <BoxGroup>
+        <SignUpBtn variant="outlined" onClick={login}>
+          로그인
+        </SignUpBtn>
+      </BoxGroup>
     </SignInBox>
   );
 }
@@ -66,6 +98,14 @@ export default function SignIn() {
 const SignInBox = styled.div`
   width: 660px;
   height: 530px;
-  border: 1px solid black;
   margin: auto;
+`;
+
+const BoxGroup = styled(Box)`
+  text-align: center;
+`;
+
+const SignUpBtn = styled(Button)`
+  width: 500px;
+  height: 45px;
 `;
