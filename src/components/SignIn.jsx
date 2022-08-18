@@ -26,7 +26,6 @@ export default function SignIn() {
   };
 
   const login = async () => {
-    console.log("login!!", loginInfo);
     try {
       let res = await axios({
         method: "POST",
@@ -37,7 +36,6 @@ export default function SignIn() {
         },
         withCredentials: true,
       });
-      console.log(res);
       setAccessToken(res.headers.authorization);
       axios.defaults.headers.common[
         "Authorization"
@@ -97,7 +95,6 @@ export default function SignIn() {
 
 const SignInBox = styled.div`
   width: 660px;
-  height: 530px;
   margin: auto;
 `;
 

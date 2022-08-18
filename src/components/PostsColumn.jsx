@@ -1,24 +1,16 @@
 import styled from "styled-components";
 
-
-
 export default function PostsColumn() {
-  
- 
-
   return (
-    
-      <Post_Form>
-          <Post_Label>ID</Post_Label>
-          <Post_Label>유형</Post_Label>
-          <Post_Label>제목</Post_Label>
-          <Post_Label>작성자</Post_Label>
-          <Post_Label>날짜</Post_Label>
-      </Post_Form>
-    
+    <Post_Form>
+      <Post_Label>ID</Post_Label>
+      <Post_Label>유형</Post_Label>
+      <Post_Label>제목</Post_Label>
+      <Post_Label>작성자</Post_Label>
+      <Post_Label>날짜</Post_Label>
+    </Post_Form>
   );
 }
-
 
 const Post_Form = styled.div`
   width: 70%;
@@ -26,7 +18,7 @@ const Post_Form = styled.div`
   text-align: center;
   border-spacing: 0;
   justify-content: space-around;
-  background-color:#58bfc1;
+  background-color: #58bfc1;
   border-radius: 10px;
   display: flex;
   border-bottom: 2px solid #e8e8e8;
@@ -34,8 +26,8 @@ const Post_Form = styled.div`
 `;
 
 const Post_Label = styled.label`
-font-size: 16px;
-font-weight: bold;
-font-family: 'Patua One', cursive;
-color:#fff;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Patua One", cursive;
+  color: #fff;
 `;

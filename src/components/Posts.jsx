@@ -1,75 +1,97 @@
-import {useEffect, useState, useSelector} from "react";
-import { useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { __getPosts } from "../redux/modules/postsSlice";
-import React, { useDispatch } from "react-redux";
+import React, { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getCookieToken } from "../storage/Cookie";
 
-import Table from '@mui/material/Table';
-
-// http://jdh3340.shop/api/board/es
-// const {boardname} = useParams();
-
 export default function Posts() {
-  // const param = useParams();
+  const { boardname } = useParams();
   const [info, setInfo] = useState(null);
-  // console.log(param);
-
-  // const config = {
-  //   headers: { Authorization: getCookieToken() },
-  //   };
-    
 
   const navigate = useNavigate();
-  
+
+  const searchText = useSelector((state) => state.searchSlice);
+
   const fetchInfo = async () => {
-    const data = await axios.get('http://jdh3340.shop/api/board/es/all'); // http://jdh3340.shop/api/board/${boadname}/all
-    console.log(data.data.data);
+    const data = await axios.get(
+      `http://jdh3340.shop/api/board/${boardname}/all`
+    );
     setInfo(data.data.data);
-    
-  }
+  };
 
   useEffect(() => {
     fetchInfo();
   }, []);
-  console.log(info);
-  return (
-    <>
-    {/* var today = new Date();
-today.setHours(today.getHours()+9)
-const createdate = today.toISOString().replace('T', ' ').substring(0, 19); */}
-      {info?.map(infos => {
+
+  if (boardname === "all") {
+    return (
+      <>
+        {searchText.search?.map((infos) => {
           return (
-          <List_Container>
-            <Post_List >{infos.id}</Post_List>
-            <Post_List >{infos.boardName}</Post_List>
-            <Post_List >
-              <Link to="/Detail">
-              {infos.title}
-              </Link>
+            <List_Container key={infos.id}>
+              <Post_List>{infos.id}</Post_List>
+              <Post_List>{infos.boardName}</Post_List>
+              <Post_List>
+                <Link to={`/${boardname}/detail/${infos.id}`}>
+                  {infos.title}
+                </Link>
               </Post_List>
-            <Post_List>{infos.nickname}</Post_List>
-            <Post_List>{infos.createAt}</Post_List>
-          </List_Container>
+              <Post_List>{infos.nickname}</Post_List>
+              <Post_List>{infos.createAt}</Post_List>
+            </List_Container>
           );
         })}
-          <Post_btn 
-            onClick={() => {
-              navigate("/Addpost");
-            }}>글쓰기</Post_btn>
-    </>
-  );
+        <Post_btn
+          onClick={() => {
+            if (getCookieToken()) {
+              navigate(`/${boardname}/addposts`);
+            }
+          }}
+        >
+          글쓰기
+        </Post_btn>
+      </>
+    );
+  } else {
+    return (
+      <>
+        {info?.map((infos) => {
+          return (
+            <List_Container key={infos.id}>
+              <Post_List>{infos.id}</Post_List>
+              <Post_List>{infos.boardName}</Post_List>
+              <Post_List>
+                <Link to={`/${boardname}/detail/${infos.id}`}>
+                  {infos.title}
+                </Link>
+              </Post_List>
+              <Post_List>{infos.nickname}</Post_List>
+              <Post_List>{infos.createAt}</Post_List>
+            </List_Container>
+          );
+        })}
+        <Post_btn
+          onClick={() => {
+            if (getCookieToken()) {
+              navigate(`/${boardname}/addposts`);
+            }
+          }}
+        >
+          글쓰기
+        </Post_btn>
+      </>
+    );
+  }
 }
 
-
 const List_Container = styled.div`
-justify-content: space-between;
-display: flex;
-width: 70%;
-margin: 0 auto;
+  justify-content: space-between;
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
 `;
 
 const Post_List = styled.label`
@@ -92,13 +114,12 @@ const Post_btn = styled.button`
   cursor: pointer;
   content: "";
   right: 0;
-   box-shadow:  4px 4px 6px 0 rgba(255,255,255,.9),
-              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.9),
-    inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.9),
+    -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+    inset -4px -4px 6px 0 rgba(255, 255, 255, 0.9),
+    inset 4px 4px 6px 0 rgba(116, 125, 136, 0.3);
   transition: all 0.3s ease;
-  font-family: 'Patua One', cursive;
-  color:#fff;
+  font-family: "Patua One", cursive;
+  color: #fff;
   font-size: 20px;
-  
 `;

@@ -48,7 +48,7 @@ export default function AddPost() {
   };
 
   const onSubmitHandler = async () => {
-    await axios.post(
+    const data = await axios.post(
       `http://jdh3340.shop/api/board/${boardname}`,
       addPostsInfo,
       config
@@ -116,7 +116,6 @@ export default function AddPost() {
 }
 
 const AddPostBox = styled.div`
-  width: 1360px;
   margin: 20px auto;
 `;
 

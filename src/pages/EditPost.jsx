@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -12,7 +12,7 @@ import axios from "axios";
 
 export default function EditPost() {
   const { boardname, id } = useParams();
-
+  const navigate = useNavigate();
   // let res = {};
   const config = {
     headers: { Authorization: getCookieToken() },
@@ -23,7 +23,6 @@ export default function EditPost() {
   //     `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
   //     config
   //   );
-  //   console.log("res !!!!!", res);
   // };
 
   // // 게시글 조회
@@ -31,9 +30,7 @@ export default function EditPost() {
   //   func();
   // }, []);
 
-  const [editInfo, setEditInfo] = useState({
-    
-  });
+  const [editInfo, setEditInfo] = useState({});
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;
@@ -52,14 +49,13 @@ export default function EditPost() {
   };
 
   const onSubmitHandler = async () => {
-    console.log(editInfo);
     const res = await axios.put(
       `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
       editInfo,
       config
     );
 
-    console.log(res);
+    navigate(`/${boardname}/detail/${id}`);
   };
 
   return (
