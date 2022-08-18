@@ -38,6 +38,7 @@ export const __addComment = createAsyncThunk(
         payload,
         config
       );
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data.comment);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

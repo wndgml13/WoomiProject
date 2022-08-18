@@ -20,7 +20,6 @@ export default function Posts() {
     const data = await axios.get(
       `http://jdh3340.shop/api/board/${boardname}/all`
     );
-
     setInfo(data.data.data);
   };
 
