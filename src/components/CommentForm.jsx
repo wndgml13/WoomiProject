@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { __addComment } from "../redux/modules/commentsSlice";
+import commentsSlice, { __getComment, __addComment} from "../redux/modules/commentsSlice";
+import { Container, TextField } from "@mui/material";
 
 export default function CommentForm() {
   const { comments } = useSelector((state) => state.commentsSlice);
@@ -19,6 +20,7 @@ export default function CommentForm() {
     setContent(e.target.value);
   };
 
+
   const onSubmitHandler = () => {
     // var today = new Date();
     // today.setHours(today.getHours()+9)
@@ -28,18 +30,37 @@ export default function CommentForm() {
     setContent("");
   };
 
+
   return (
+  <Container>
     <StCommentInput>
-      댓글입력(아이디 불러와야함)
-      <input type="text" name="content" onChange={onChangeHandler} />
-      <button onClick={onSubmitHandler}>댓글쓰기</button>
+      <div>
+        <TextField placeholder="댓글을 입력해주세요" type="text" name="content" id="outlined-basic" variant="outlined" value={comments.content} onChange={onChangeHandler}/>
+        <Button onClick={onSubmitHandler}>댓글쓰기</Button>
+      </div>
     </StCommentInput>
+  </Container>
   );
 }
 const StCommentInput = styled.div`
-  width: 600px;
+  background-color: #D9D9D9;
+  width: 98%;
   height: 50px;
-  border: 1px solid black;
-  border-radius: 2px;
+  margin-top: 0%;
+  margin-left: 0%;
   padding: 20px;
+`;
+
+const Button = styled.button`
+  width: 100px;
+  height: 60px;
+  float: "right";
+  margin-right: "2%";
+  margin-top:"1%";
+  border: none;
+  background-color: #224a48;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: white;
+  margin-left: 5px;
 `;
