@@ -1,3 +1,7 @@
+// import * as React from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
 import styled from "styled-components";
 import {useState} from "react";
 import React, {useEffect} from "react";
@@ -8,6 +12,7 @@ import { useNavigate} from "react-router-dom";
 
 import axios from "axios";
 import {Table} from "react-bootstrap";
+import { getCookieToken } from "../storage/Cookie";
 
 
 
@@ -19,30 +24,49 @@ export default function MyPage() {
   const [nicknamemode, setNickNameMode] = useState(false);
   const [editpassword, setEditPassWord] = useState("");
   const [passwordmode, setPassWordMode] = useState(false);
+  const [pastpassword, setpastpassword] = useState("");
+  const [pastpasswordcheck, setPastPassWordCheck] = useState("");   // 재범님 비밀번호 재확인 스테이트 만든것을 비밀번호 재확인 상태 변경중입니다.
+  
+  
+  const userinfo = {
+        nickname: editnickname,
+        password: editpassword,
+        pastPassword: pastpassword
+  }
 
+const config = {
+    headers: { Authorization: getCookieToken() },
+    };
   
   const onClickEditNickName = async () => {
     if (nicknamemode) {
-      setNickNameMode(false);
-      await axios.patch('http://localhost:3001/profiles', {nickname:editnickname});
+      if (pastpassword === pastpasswordcheck) {        // 재범님 비밀번호 재확인 스테이트 만든것을 비밀번호 재확인 상태 변경중입니다.
+        setNickNameMode(false);
+      const data = await axios.put('http://jdh3340.shop/api/user', userinfo, config); //http://jdh3340.shop/api/board/es/all
+    console.log(data);
+      }
+      
     } else{
+      console.log(mypage.password);
+      setpastpassword(mypage.password);
       setNickNameMode(true);
     }
   } 
-  const onClickEditPassWord = async () => {
+  const onClickEditPassWord = async () => {               
     if (passwordmode) {
       setPassWordMode(false);
-      await axios.patch('http://localhost:3001/profiles', {newpassword:editpassword});
+      const data = await axios.patch('http://jdh3340.shop/api/user', {password:editpassword}, config);
+      console.log(data);
     } else{
       setPassWordMode(true);
     }
   } 
   const onClickDelete = async () => {
-    await axios.delete('http://localhost:3001/profiles');
-    
+    const data = await axios.delete('http://jdh3340.shop/api/user', config);
+    console.log(data);
   }
   
-  
+  // {newpassword:editpassword}
   useEffect(() => {
     dispatch(__getMypage());
   }, [dispatch]);
@@ -59,11 +83,15 @@ export default function MyPage() {
     <Page_Container>
       <Profile>회원정보 조회</Profile>
       <div>ID : {mypage.username}</div>
+
       <div>
       {nicknamemode ?
-      <input
+      <TextField
         type="text"
-        placeholder="새로운 닉네임을 입력하세요."
+        id="outlined-basic" 
+        label="새로운 닉네임" 
+        variant="outlined"
+        placeholder="새로운 닉네임"
         onChange={(e) => {
           
           setEditNickName(e.target.value);
@@ -75,44 +103,68 @@ export default function MyPage() {
       
       {passwordmode ?
       <div>
-        <input
+        <TextField
           type="text"
-          placeholder="새로운 비밀번호를 입력하세요."
+          id="outlined-basic" 
+          label="기존 비밀번호" 
+          variant="outlined"
+          placeholder="기존 비밀번호"
           onChange={(e) => {
             setEditPassWord(e.target.value);
           }}
           />
-          <input
+        <TextField
           type="text"
+          id="outlined-basic" 
+          label="새로운 비밀번호" 
+          variant="outlined"
+          placeholder="새로운 비밀번호"
+          onChange={(e) => {
+            setpastpassword(e.target.value);
+          }}
+          />
+          <TextField
+          type="text"
+          id="outlined-basic" 
+          label="비밀번호 재확인" 
+          variant="outlined"
           placeholder="비밀번호 재확인"
           onChange={(e) => {
-            setEditPassWord(e.target.value);
+            setPastPassWordCheck(e.target.value);  // 재범님 비밀번호 재확인 스테이트 만든것을 비밀번호 재확인 상태 변경중입니다.
           }}
           />
       </div>
         : ""
+        
       }
     </Page_Container>
-      <Edit_Delete_btn
+      <Button
         type="button"
+        variant="outlined"
         onClick={ () => 
           {navigate("/"); 
         onClickDelete();}}>회원탈퇴
-      </Edit_Delete_btn>
+      </Button>
       {/* <div>{mypage?.map((todo)=>(
         <div key={todo.id}></div>
       ))}</div> */}
-      <Edit_Delete_btn
+      <Button
         type="button"
+        variant="outlined"
         onClick={() => onClickEditNickName(editnickname)}
-        
         >닉네임 변경
-      </Edit_Delete_btn>
-      <Edit_Delete_btn
-        type="button"
-        onClick={() => onClickEditPassWord(editpassword)}
-      >비밀번호 변경
-      </Edit_Delete_btn>
+      </Button>
+      <Button
+          type="button"
+          variant="outlined"
+          onClick={() => onClickEditPassWord(editpassword)}
+        >비밀번호 변경
+      </Button>
+      
+      
+      
+        
+      
     </>
     
   };

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import mockData from "../mockData";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
@@ -33,8 +32,7 @@ export default function EditPost() {
   // }, []);
 
   const [editInfo, setEditInfo] = useState({
-    title: mockData.editPosts.title,
-    content: mockData.editPosts.content,
+    
   });
 
   const onChangeHandler = (event) => {

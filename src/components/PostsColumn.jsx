@@ -10,6 +10,7 @@ export default function PostsColumn() {
     
       <Post_Form>
           <Post_Label>ID</Post_Label>
+          <Post_Label>유형</Post_Label>
           <Post_Label>제목</Post_Label>
           <Post_Label>작성자</Post_Label>
           <Post_Label>날짜</Post_Label>
