@@ -135,7 +135,7 @@ export default function Header() {
                 ENXX
               </Typography>
               <Typography
-                id="all"
+                id="ALL"
                 variant="h6"
                 noWrap
                 component="div"

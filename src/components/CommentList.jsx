@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __getComment } from "../redux/modules/commentsSlice";
 import Comment from "../components/Comment";
-import { Container } from '@mui/material';
+import { Container } from "@mui/material";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
 export default function CommentList() {
   const dispatch = useDispatch();
@@ -16,14 +17,14 @@ export default function CommentList() {
 
   if (isFinish) {
     return (
-    <Container fixed style={{padding: '4%', backgroundColor:'#D9D9D9'}}>
-      <StCommentList>
-        {comments.map((comments) => {
-          return <Comment key={comments.id} comments = {comments}/>
-        })}
-      </StCommentList>
-    </Container>
-  );
+      <Container fixed style={{ padding: "4%", backgroundColor: "#D9D9D9" }}>
+        <StCommentList>
+          {comments?.map((comments) => {
+            return <Comment key={comments.id} comments={comments} />;
+          })}
+        </StCommentList>
+      </Container>
+    );
   }
 }
 

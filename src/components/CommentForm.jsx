@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import commentsSlice, { __getComment, __addComment} from "../redux/modules/commentsSlice";
+import commentsSlice, {
+  __getComment,
+  __addComment,
+} from "../redux/modules/commentsSlice";
 import { Container, TextField } from "@mui/material";
 
 export default function CommentForm() {
@@ -20,7 +23,6 @@ export default function CommentForm() {
     setContent(e.target.value);
   };
 
-
   const onSubmitHandler = () => {
     // var today = new Date();
     // today.setHours(today.getHours()+9)
@@ -30,25 +32,29 @@ export default function CommentForm() {
     setContent("");
   };
 
-
   return (
-  <Container>
-    <StCommentInput>
-      <div>
-        <TextField placeholder="댓글을 입력해주세요" type="text" name="content" id="outlined-basic" variant="outlined" value={comments.content} onChange={onChangeHandler}/>
-        <Button onClick={onSubmitHandler}>댓글쓰기</Button>
-      </div>
-    </StCommentInput>
-  </Container>
+    <Container fixed style={{ backgroundColor: "#D9D9D9", paddingBottom: 40 }}>
+      <StCommentInput>
+        <div>
+          <TextField
+            placeholder="댓글을 입력해주세요"
+            type="text"
+            name="content"
+            id="outlined-basic"
+            variant="outlined"
+            onChange={onChangeHandler}
+          />
+          <Button onClick={onSubmitHandler}>댓글쓰기</Button>
+        </div>
+      </StCommentInput>
+    </Container>
   );
 }
 const StCommentInput = styled.div`
-  background-color: #D9D9D9;
+  margin-left: 60%;
   width: 98%;
   height: 50px;
-  margin-top: 0%;
-  margin-left: 0%;
-  padding: 20px;
+  padding: 1%;
 `;
 
 const Button = styled.button`
@@ -56,7 +62,7 @@ const Button = styled.button`
   height: 60px;
   float: "right";
   margin-right: "2%";
-  margin-top:"1%";
+  margin-top: "1%";
   border: none;
   background-color: #224a48;
   padding: 8px 16px;

@@ -2,13 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { __deleteComment, __editComment } from "../redux/modules/commentsSlice";
 import styled from "styled-components";
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
 import { TextField } from "@mui/material";
 import { useParams } from "react-router-dom";
-
 
 export default function Comment({ comments }) {
   const dispatch = useDispatch();
@@ -61,35 +56,63 @@ export default function Comment({ comments }) {
 
   return (
     <StCommentList>
-      <div><b>{comments.nickname}</b> {comments.createAt} </div>
-      {isEditable===true?(
-        <TextField id="outlined-basic" variant="outlined" 
-        value={content} onChange={onChangeHandler}/>
-      ):(<div style={{marginLeft:10}}>{comments.content}</div>)}
-    
       <div>
-          <Button onClick={onEditHandler}>수정</Button>
-          <Button onClick={()=>{setModalDelete(modalDelete==false?true:false)}}>
-            삭제</Button>
-        {modalDelete==true?<DeleteModal delModal={setModalDelete} 
-        onClickDeleteButtonHandler={onClickDeleteButtonHandler}/>:null}
-    </div>
+        <b>{comments.nickname}</b> {comments.createAt}{" "}
+      </div>
+      {isEditable === true ? (
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          value={content}
+          onChange={onChangeHandler}
+        />
+      ) : (
+        <div style={{ marginLeft: 10 }}>{comments.content}</div>
+      )}
+
+      <div>
+        <Button onClick={onEditHandler}>수정</Button>
+        <Button
+          onClick={() => {
+            setModalDelete(modalDelete == false ? true : false);
+          }}
+        >
+          삭제
+        </Button>
+        {modalDelete == true ? (
+          <DeleteModal
+            delModal={setModalDelete}
+            onClickDeleteButtonHandler={onClickDeleteButtonHandler}
+          />
+        ) : null}
+      </div>
     </StCommentList>
   );
 }
 
-function DeleteModal(props){
-  return(
+function DeleteModal(props) {
+  return (
     <StModal>
-    <div>
+      <div>
         <div>정말 삭제하시겠습니까?</div>
-        <Button2 style={{float: "right", marginRight: "2%", marginTop:1}} onClick={props.onClickDeleteButtonHandler}>삭제</Button2> 
-        <Button2 style={{float: "right", marginRight: "2%", marginTop:1}} onClick={()=>{props.delModal(false)}}>취소</Button2> 
-    </div>
+        <Button2
+          style={{ float: "right", marginRight: "2%", marginTop: 1 }}
+          onClick={props.onClickDeleteButtonHandler}
+        >
+          삭제
+        </Button2>
+        <Button2
+          style={{ float: "right", marginRight: "2%", marginTop: 1 }}
+          onClick={() => {
+            props.delModal(false);
+          }}
+        >
+          취소
+        </Button2>
+      </div>
     </StModal>
-  )
+  );
 }
-
 
 const StCommentList = styled.div`
   float: "right";
@@ -116,7 +139,7 @@ const StModal = styled.div`
 const Button = styled.button`
   float: "right";
   margin-right: "2%";
-  margin-top:"1%";
+  margin-top: "1%";
   border: none;
   background-color: #224a48;
   padding: 8px 16px;

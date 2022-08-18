@@ -73,16 +73,20 @@ export default function SignUp() {
       !passwordError &&
       !checkPasswordError
     ) {
+      console.log("ddd");
       return true;
     } else {
+      console.log("aaaa");
       return false;
     }
   };
 
   const onSubmitHandler = async () => {
+    console.log("dkdkdkdkdkdk");
     if (validation()) {
       try {
-        await axios.post("http://jdh3340.shop/api/user/register", {
+        console.log("dadadfsa");
+        const data = await axios.post("http://jdh3340.shop/api/user/register", {
           username: userId,
           password,
           nickname,
