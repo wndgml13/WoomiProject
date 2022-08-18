@@ -1,26 +1,31 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import commentsSlice, { __addComment} from "../redux/modules/commentsSlice";
+import commentsSlice, { __getComment, __addComment} from "../redux/modules/commentsSlice";
 
 export default function CommentForm() {
   const {comments} = useSelector((state) => state.commentsSlice);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
 
+  //코멘트 작성 후 페이지 업데이트
+  useEffect(() => {
+    dispatch(__getComment());
+    }, setContent);
+
   const onChangeHandler=(e)=>{setContent(e.target.value)}
 
   const onSubmitHandler=()=>{
-    var today = new Date();
-    today.setHours(today.getHours()+9)
-    const createdate = today.toISOString().replace('T', ' ').substring(0, 19);
+    // var today = new Date();
+    // today.setHours(today.getHours()+9)
+    // const createAt = today.toISOString().replace('T', ' ').substring(0, 10);
 
     dispatch(
       __addComment({
         id: comments.length,
         content,
-        //nickname,
-        createdate
+        // nickname,
+        // createAt
       })
     ); setContent("");}
 
@@ -39,3 +44,4 @@ const StCommentInput = styled.div`
   border-radius: 2px;
   padding: 20px;
 `;
+
