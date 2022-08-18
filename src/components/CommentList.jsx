@@ -3,20 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { __getComment } from "../redux/modules/commentsSlice";
 import styled from "styled-components";
 import Comment from "../components/Comment";
+import { useParams } from "react-router-dom";
 
 export default function CommentList() {
-
   const dispatch = useDispatch();
-  const {comments} = useSelector((state) => state.commentsSlice);
+  const param = useParams();
+  const { comments, isFinish } = useSelector((state) => state.commentsSlice);
 
-    useEffect(() => {dispatch(__getComment(comments.id));
-    }, [dispatch, comments.id]);
+  useEffect(() => {
+    dispatch(__getComment(param));
+  }, [dispatch, param]);
 
-  return (
-    <>
-      {comments.map((comments) => {
-        return <Comment key={comments.id} comments = {comments}/>
-      })}
-    </>
-  );
+  if (isFinish) {
+    return (
+      <>
+        {comments?.map((comment) => {
+          return <Comment key={comment.id} comments={comment} />;
+        })}
+      </>
+    );
+  }
 }

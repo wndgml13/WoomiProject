@@ -1,33 +1,37 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import commentsSlice, { __addComment} from "../redux/modules/commentsSlice";
+import { __addComment } from "../redux/modules/commentsSlice";
 
 export default function CommentForm() {
-  const {comments} = useSelector((state) => state.commentsSlice);
+  const { comments } = useSelector((state) => state.commentsSlice);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  const param = useParams();
 
-  const onChangeHandler=(e)=>{setContent(e.target.value)}
+  //코멘트 작성 후 페이지 업데이트
+  // useEffect(() => {
+  //   dispatch(__getComment());
+  // }, setContent);
 
-  const onSubmitHandler=()=>{
-    var today = new Date();
-    today.setHours(today.getHours()+9)
-    const createdate = today.toISOString().replace('T', ' ').substring(0, 19);
+  const onChangeHandler = (e) => {
+    setContent(e.target.value);
+  };
 
-    dispatch(
-      __addComment({
-        id: comments.length,
-        content,
-        //nickname,
-        createdate
-      })
-    ); setContent("");}
+  const onSubmitHandler = () => {
+    // var today = new Date();
+    // today.setHours(today.getHours()+9)
+    // const createAt = today.toISOString().replace('T', ' ').substring(0, 10);
+
+    dispatch(__addComment(param));
+    setContent("");
+  };
 
   return (
     <StCommentInput>
       댓글입력(아이디 불러와야함)
-      <input type="text" name="content" value={comments.content} onChange={onChangeHandler}/>
+      <input type="text" name="content" onChange={onChangeHandler} />
       <button onClick={onSubmitHandler}>댓글쓰기</button>
     </StCommentInput>
   );

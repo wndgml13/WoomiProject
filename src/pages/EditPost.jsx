@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -12,28 +12,32 @@ import axios from "axios";
 
 export default function EditPost() {
   const { boardname, id } = useParams();
-
-  // let res = {};
+  const navigate = useNavigate();
   const config = {
     headers: { Authorization: getCookieToken() },
   };
 
-  // const func = async () => {
-  //   const res = await axios.get(
-  //     `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
-  //     config
-  //   );
-  //   console.log("res !!!!!", res);
-  // };
-
-  // // 게시글 조회
-  // useEffect(() => {
-  //   func();
-  // }, []);
+  const [posts, setPosts] = useState(null);
 
   const [editInfo, setEditInfo] = useState({
-    
+    title: "",
+    content: "",
   });
+
+  const fetchPosts = async () => {
+    const data = await axios.get(
+      `http://jdh3340.shop/api/board/${boardname}/id/${id}`
+    );
+
+    setEditInfo({
+      title: data.data.data.title,
+      content: data.data.data.content,
+    });
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;
@@ -52,14 +56,13 @@ export default function EditPost() {
   };
 
   const onSubmitHandler = async () => {
-    console.log(editInfo);
     const res = await axios.put(
       `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
       editInfo,
       config
     );
 
-    console.log(res);
+    navigate(`/${boardname}/detail/${id}`);
   };
 
   return (

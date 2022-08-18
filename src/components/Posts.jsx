@@ -1,7 +1,6 @@
 import {useEffect, useState, useSelector} from "react";
 import { useNavigate} from "react-router-dom";
 import axios from "axios";
-// import { __getPosts } from "../redux/modules/postsSlice";
 import React, { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
@@ -10,18 +9,11 @@ import { getCookieToken } from "../storage/Cookie";
 
 import Table from '@mui/material/Table';
 
-// http://jdh3340.shop/api/board/es
-// const {boardname} = useParams();
+
 
 export default function Posts() {
-  // const param = useParams();
+  
   const [info, setInfo] = useState(null);
-  // console.log(param);
-
-  // const config = {
-  //   headers: { Authorization: getCookieToken() },
-  //   };
-    
 
   const navigate = useNavigate();
   
