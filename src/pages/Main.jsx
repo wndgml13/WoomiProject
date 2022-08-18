@@ -6,16 +6,32 @@ export default function Main() {
   const navigate = useNavigate();
 
   return (
-  <div style={{width:"100%"}}>
+ <div style={{width:"100%"}}>
     <div style={{backgroundColor:'#B4CBC9', flex: 1, marginTop: 20, marginLeft: 20, marginRight: 20, marginBottom: 20, }}> 
       <div className='MainIMG' style={{padding: "3%"}}>
         <img alt="main" src={process.env.PUBLIC_URL + '/Main.png' } width="100%" style={{display : "block"}}/> 
       </div>
 
-      <div className='BoxIMGContainer'>
-      <div className='MainContents'>
+        <div className="BoxIMGContainer">
+          <div className="MainContents">
+            <StCards>
+              <div className="ISXX">
+                <h2 style={{ textAlign: "center", fontSize: 25 }}>
+                  ISXX의 게시판
+                </h2>
+                <div className="box">
+                  <img
+                    src={process.env.PUBLIC_URL + "/CARD_ISXX.png"}
+                    alt="isxx"
+                    width="100%"
+                  />
+                  <div>ISXX(내향감각)</div>
+                  <div>ISFJ, ISFP, ISTJ, ISTP</div>
+                </div>
+              </div>
+            </StCards>
 
-      <StCards>  
+ <StCards>  
           <div className="ISXX">
             <h2 style={{textAlign: "center", fontSize:30}}>ISXX의 게시판</h2>
             <div className='box'>
@@ -25,8 +41,7 @@ export default function Main() {
                 <div style={{textAlign: "center", fontSize:20}}>ISFJ, ISFP, ISTJ, ISTP</div>
               </StMsgBox> 
             </div>
-          </div>
-        </StCards>
+
 
         <StCards>  
           <div className="INXX">
@@ -70,7 +85,6 @@ export default function Main() {
         </div>
       </div>
     </div>
-  </div>
   );
 }
 
@@ -87,6 +101,7 @@ const StCards = styled.div`
   float: left;
 `;
 
+
 const StMsgBox = styled.div`
   background-color: #D9D9D9;
   width: 90%;
@@ -98,4 +113,5 @@ const StMsgBox = styled.div`
   margin-bottom: 1%;
   padding: 5%;
   text-align: center;
+  border: 1px solid black;
 `;

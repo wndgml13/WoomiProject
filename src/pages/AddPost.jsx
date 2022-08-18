@@ -17,19 +17,13 @@ export default function AddPost() {
   const navigate = useNavigate();
 
   const { boardname } = useParams();
-  // const [addPostsInfo, setAddPostsInfo] = useState({
-  //   title: "",
-  //   content: "",
-  //   url: "",
-  //   status: false,
-  // });
 
   const [addPostsInfo, setAddPostsInfo] = useState({
     title: "",
     content: "",
   });
 
-  const { title, content, url } = addPostsInfo;
+  const { title, content } = addPostsInfo;
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;
@@ -48,11 +42,12 @@ export default function AddPost() {
   };
 
   const onSubmitHandler = async () => {
-    await axios.post(
+    const data = await axios.post(
       `http://jdh3340.shop/api/board/${boardname}`,
       addPostsInfo,
       config
     );
+    console.log("addpost :: ", data);
     // setAddPostsInfo({
     //   title: "",
     //   content: "",
@@ -116,7 +111,6 @@ export default function AddPost() {
 }
 
 const AddPostBox = styled.div`
-  width: 1360px;
   margin: 20px auto;
 `;
 

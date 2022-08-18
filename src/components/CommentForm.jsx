@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import commentsSlice, { __getComment, __addComment} from "../redux/modules/commentsSlice";
 import { Container, TextField } from "@mui/material";
 
 export default function CommentForm() {
-  const {comments} = useSelector((state) => state.commentsSlice);
+  const { comments } = useSelector((state) => state.commentsSlice);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-
+  const param = useParams();
+  console.log(comments, content);
   //코멘트 작성 후 페이지 업데이트
-  useEffect(() => {
-    dispatch(__getComment());
-    }, setContent);
+  // useEffect(() => {
+  //   dispatch(__getComment());
+  // }, setContent);
 
-  const onChangeHandler=(e)=>{setContent(e.target.value)}
+  const onChangeHandler = (e) => {
+    setContent(e.target.value);
+  };
 
-  const onSubmitHandler=()=>{
 
-    dispatch(
-      __addComment({
-        id: comments.length,
-        content,
-      })
-    ); setContent("");}
+  const onSubmitHandler = () => {
+    // var today = new Date();
+    // today.setHours(today.getHours()+9)
+    // const createAt = today.toISOString().replace('T', ' ').substring(0, 10);
+
+    dispatch(__addComment(param));
+    setContent("");
+  };
+
 
   return (
   <Container>
@@ -58,4 +64,3 @@ const Button = styled.button`
   color: white;
   margin-left: 5px;
 `;
-

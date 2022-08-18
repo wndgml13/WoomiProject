@@ -8,9 +8,11 @@ import Login from "./pages/Login";
 import MyPage from "./pages/MyPage";
 import Header from "./components/Header";
 import PostsContainer from "./pages/PostsContainer";
+import React from "react";
 
 function App() {
   return (
+    // <PostsContainer/>
     <BrowserRouter>
       <Header />
       <Routes>

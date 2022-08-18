@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from 'axios';
-import {useParams} from "react-router-dom";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import { getCookieToken } from "../storage/Cookie";
 import { Container } from '@mui/material';
 import { margin } from "@mui/system";
@@ -11,27 +10,42 @@ import { createTheme } from '@mui/material/styles';
 import { teal } from '@mui/material/colors';
 
 export default function DetailPosts() {
-
   const config = {
     headers: { Authorization: getCookieToken() },
-    };
+  };
+  const { boardname, id } = useParams();
 
-  const [posts, setPosts] =useState(null);
+  // let {id} = useParams();
+
+  //id 를 int로 / num 바꿔주기
+  //  let findPosts = posts.find(x=> x.id == id);// useParams 정렬문제 해결
+
+  const [posts, setPosts] = useState(null);
 
   const fetchPosts = async () => {
-    const data  = await axios.get("http://jdh3340.shop/api/board/es/id/1"); //프론트엔드끼리할것
-    setPosts(data.data.data)};
-    
-    useEffect(()=>{fetchPosts()},[]);
-  
+    const data = await axios.get(
+      `http://jdh3340.shop/api/board/${boardname}/id/${id}`
+    ); //프론트엔드끼리할것
+    setPosts(data.data.data);
+    console.log("detailpost fetchPosts :: ", data);
+  }; //이부분에 useParam 넣고 싶은데 안됨
+
+  useEffect(() => {
+    fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const navigate = useNavigate();
   let [modalDelete, setModalDelete] = useState(false);
 
-  const onClickDeleteButtonHandler = async(postId) => {
-    await axios.delete(`http://jdh3340.shop/api/board/es/id/1`, config)
-    navigate("/postscontainer/es")
+  const onClickDeleteButtonHandler = async (postId) => {
+    const data = await axios.delete(
+      `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
+      config
+    );
+    console.log("detailpost onClickDeleteButtonHandler :: ", data);
+    navigate(`/postscontainer/${boardname}`);
   };
-
 return (
     <Container fixed style={{padding: '4%', backgroundColor:'#D9D9D9'}}>
       <h4 style={{fontSize: 20}}>ISXX게시판: ISXX에 대해 자유롭게 이야기를 나눠주세요!</h4>
@@ -99,4 +113,6 @@ const Button2 = styled.button`
   padding: 8px 16px;
   border-radius: 5px;
   color: #444444;
+  padding: 20px;
 `;
+

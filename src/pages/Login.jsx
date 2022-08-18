@@ -41,7 +41,6 @@ export default function Login() {
   );
 }
 const LoginBox = styled.div`
-  width: 1360px;
   margin: auto;
 `;
 const BtnGroupContainer = styled.div`
