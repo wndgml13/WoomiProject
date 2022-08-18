@@ -24,7 +24,7 @@ export default function EditPost() {
 
   const fetchPosts = async () => {
     const data = await axios.get(
-      `http://jdh3340.shop/api/board/${boardname}/id/${id}`
+      `https://jdh3340.shop/api/board/${boardname}/id/${id}`
     );
 
     setEditInfo({
@@ -56,7 +56,7 @@ export default function EditPost() {
 
   const onSubmitHandler = async () => {
     await axios.put(
-      `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
+      `https://jdh3340.shop/api/board/${boardname}/id/${id}`,
       editInfo,
       config
     );

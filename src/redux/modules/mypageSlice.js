@@ -18,7 +18,7 @@ export const __getMypage = createAsyncThunk(
 
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://jdh3340.shop/api/user", config);
+      const data = await axios.get("https://jdh3340.shop/api/user", config);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

@@ -82,7 +82,7 @@ export default function SignUp() {
   const onSubmitHandler = async () => {
     if (validation()) {
       try {
-        await axios.post("http://jdh3340.shop/api/user/register", {
+        await axios.post("https://jdh3340.shop/api/user/register", {
           username: userId,
           password,
           nickname,

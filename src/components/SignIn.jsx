@@ -29,7 +29,7 @@ export default function SignIn() {
     try {
       let res = await axios({
         method: "POST",
-        url: "http://jdh3340.shop/login",
+        url: "https://jdh3340.shop/login",
         data: {
           username,
           password,

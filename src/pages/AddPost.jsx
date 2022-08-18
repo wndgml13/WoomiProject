@@ -43,7 +43,7 @@ export default function AddPost() {
 
   const onSubmitHandler = async () => {
     const data = await axios.post(
-      `http://jdh3340.shop/api/board/${boardname}`,
+      `https://jdh3340.shop/api/board/${boardname}`,
       addPostsInfo,
       config
     );

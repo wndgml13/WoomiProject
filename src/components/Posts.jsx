@@ -18,7 +18,7 @@ export default function Posts() {
 
   const fetchInfo = async () => {
     const data = await axios.get(
-      `http://jdh3340.shop/api/board/${boardname}/all`
+      `https://jdh3340.shop/api/board/${boardname}/all`
     );
     setInfo(data.data.data);
   };

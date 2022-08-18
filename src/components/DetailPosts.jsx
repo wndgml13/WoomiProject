@@ -21,7 +21,7 @@ export default function DetailPosts() {
 
   const fetchPosts = async () => {
     const data = await axios.get(
-      `http://jdh3340.shop/api/board/${boardname}/id/${id}`
+      `https://jdh3340.shop/api/board/${boardname}/id/${id}`
     ); //프론트엔드끼리할것
     setPosts(data.data.data);
     console.log("detailpost fetchPosts :: ", data);
@@ -37,7 +37,7 @@ export default function DetailPosts() {
 
   const onClickDeleteButtonHandler = async (postId) => {
     await axios.delete(
-      `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
+      `https://jdh3340.shop/api/board/${boardname}/id/${id}`,
       config
     );
     navigate(`/postscontainer/${boardname}`);

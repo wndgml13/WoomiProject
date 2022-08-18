@@ -30,7 +30,7 @@ export default function MyPage() {
   };
 
   const onClickDelete = async () => {
-    await axios.delete("http://jdh3340.shop/api/user", config);
+    await axios.delete("https://jdh3340.shop/api/user", config);
   };
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function MyPage() {
     if (editToggleMode) {
       if (editUserInfo.password === passwordChknew) {
         setEditToggleMode(false);
-        await axios.put("http://jdh3340.shop/api/user", editUserInfo, config);
+        await axios.put("https://jdh3340.shop/api/user", editUserInfo, config);
       }
     } else {
       setEditToggleMode(true);

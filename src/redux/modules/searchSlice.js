@@ -13,7 +13,7 @@ export const __searchTitle = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        `http://jdh3340.shop/api/search?title=${payload}`
+        `https://jdh3340.shop/api/search?title=${payload}`
       );
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
