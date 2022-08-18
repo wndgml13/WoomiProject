@@ -48,7 +48,6 @@ export default function Header() {
     if (token) {
       alert("로그아웃 하시겠습니까?");
       removeCookieToken();
-      localStorage.removeItem("nickname");
       navigate("/login");
     } else {
       navigate("/login");

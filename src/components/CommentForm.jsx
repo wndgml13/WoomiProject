@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+/* eslint-disable no-use-before-define */
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { __addComment } from "../redux/modules/commentsSlice";
 import { Container, TextField } from "@mui/material";
+import { __getMypage } from "../redux/modules/mypageSlice";
 
 export default function CommentForm() {
   const { comments } = useSelector((state) => state.commentsSlice);
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const param = useParams();
+
+  const { mypage } = useSelector((state) => state.mypage);
+
+  useEffect(() => {
+    dispatch(__getMypage());
+  }, [dispatch]);
 
   //코멘트 작성 후 페이지 업데이트
   // useEffect(() => {
@@ -24,8 +32,10 @@ export default function CommentForm() {
     // var today = new Date();
     // today.setHours(today.getHours()+9)
     // const createAt = today.toISOString().replace('T', ' ').substring(0, 10);
-    console.log(comments, content);
-    dispatch(__addComment(param));
+
+    const nick = mypage.data.nickname;
+    console.log(comments, content, nick);
+    dispatch(__addComment({ param, content, nick }));
     setContent("");
   };
 
