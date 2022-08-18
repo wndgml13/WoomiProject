@@ -28,7 +28,7 @@ export default function DetailPosts() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  });
 
   const navigate = useNavigate();
   let [modalDelete, setModalDelete] = useState(false);

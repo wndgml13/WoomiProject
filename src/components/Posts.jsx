@@ -25,7 +25,7 @@ export default function Posts() {
 
   useEffect(() => {
     fetchInfo();
-  }, []);
+  });
 
   if (boardname === "all") {
     return (

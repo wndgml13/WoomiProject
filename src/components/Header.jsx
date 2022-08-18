@@ -80,6 +80,7 @@ export default function Header() {
         <img
           onClick={moveToBoard}
           src={process.env.PUBLIC_URL + "/logo.png"}
+          alt="logo"
           width="250px"
         />
         <Button variant="outlined" onClick={moveToMyPage}>

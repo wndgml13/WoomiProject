@@ -35,7 +35,7 @@ export default function EditPost() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  });
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;
