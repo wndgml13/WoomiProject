@@ -1,7 +1,9 @@
 import {useEffect, useState, useSelector} from "react";
 import { useNavigate} from "react-router-dom";
 import axios from "axios";
-import React, { useDispatch } from "react-redux";
+
+import React, { useDispatch, useSelector } from "react-redux";
+
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -16,56 +18,94 @@ export default function Posts() {
   const [info, setInfo] = useState(null);
 
   const navigate = useNavigate();
-  
+
+
+  const searchText = useSelector((state) => state.searchSlice);
+  console.log(searchText);
+
   const fetchInfo = async () => {
-    const data = await axios.get('http://jdh3340.shop/api/board/es/all'); // http://jdh3340.shop/api/board/${boadname}/all
-    console.log(data.data.data);
+    const data = await axios.get(
+      `http://jdh3340.shop/api/board/${boardname}/all`
+    );
+    console.log("posts:: ", data);
+
     setInfo(data.data.data);
     
   }
 
   useEffect(() => {
     fetchInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(info);
-  return (
-    <>
-    {/* var today = new Date();
-today.setHours(today.getHours()+9)
-const createdate = today.toISOString().replace('T', ' ').substring(0, 19); */}
-      {info?.map(infos => {
+  if (boardname === "all") {
+    return (
+      <>
+        {searchText.search?.map((infos) => {
           return (
-          <List_Container>
-            <Post_List >{infos.id}</Post_List>
-            <Post_List >{infos.boardName}</Post_List>
-            <Post_List >
-              <Link to="/Detail">
-              {infos.title}
-              </Link>
-              </Post_List>
-            <Post_List>{infos.nickname}</Post_List>
-            <Post_List>{infos.createAt}</Post_List>
-          </List_Container>
+            <ListContainer key={infos.id}>
+              <PostList>{infos.id}</PostList>
+              <PostList>{infos.boardName}</PostList>
+              <PostList>
+                <Link to={`/${boardname}/detail/${infos.id}`}>
+                  {infos.title}
+                </Link>
+              </PostList>
+              <PostList>{infos.nickname}</PostList>
+              <PostList>{infos.createAt}</PostList>
+            </ListContainer>
           );
         })}
-          <Post_btn 
-            onClick={() => {
-              navigate("/Addpost");
-            }}>글쓰기</Post_btn>
-    </>
-  );
+        <Postbtn
+          onClick={() => {
+            if (getCookieToken()) {
+              navigate(`/${boardname}/addposts`);
+            }
+          }}
+        >
+          글쓰기
+        </Postbtn>
+      </>
+    );
+  } else {
+    return (
+      <>
+        {info?.map((infos) => {
+          return (
+            <ListContainer key={infos.id}>
+              <PostList>{infos.id}</PostList>
+              <PostList>{infos.boardName}</PostList>
+              <PostList>
+                <Link to={`/${boardname}/detail/${infos.id}`}>
+                  {infos.title}
+                </Link>
+              </PostList>
+              <PostList>{infos.nickname}</PostList>
+              <PostList>{infos.createAt}</PostList>
+            </ListContainer>
+          );
+        })}
+        <Postbtn
+          onClick={() => {
+            if (getCookieToken()) {
+              navigate(`/${boardname}/addposts`);
+            }
+          }}
+        >
+          글쓰기
+        </Postbtn>
+      </>
+    );
+  }
 }
 
-
-const List_Container = styled.div`
-justify-content: space-between;
-display: flex;
-width: 69%;
-margin: 0 auto;
-
+const ListContainer = styled.div`
+  justify-content: space-between;
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
 `;
 
-const Post_List = styled.label`
+const PostList = styled.label`
   width: 70%;
   text-align: center;
   font-size: 16px;
@@ -80,7 +120,7 @@ const Post_List = styled.label`
   
 `;
 
-const Post_btn = styled.button`
+const Postbtn = styled.button`
   background-color: #4dccc6;
   background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
   line-height: 42px;

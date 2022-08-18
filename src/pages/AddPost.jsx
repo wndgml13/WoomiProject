@@ -23,7 +23,7 @@ export default function AddPost() {
     content: "",
   });
 
-  const { title, content, url } = addPostsInfo;
+  const { title, content } = addPostsInfo;
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;
@@ -47,6 +47,7 @@ export default function AddPost() {
       addPostsInfo,
       config
     );
+    console.log("addpost :: ", data);
     // setAddPostsInfo({
     //   title: "",
     //   content: "",

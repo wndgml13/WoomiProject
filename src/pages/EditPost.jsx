@@ -17,8 +17,6 @@ export default function EditPost() {
     headers: { Authorization: getCookieToken() },
   };
 
-  const [posts, setPosts] = useState(null);
-
   const [editInfo, setEditInfo] = useState({
     title: "",
     content: "",
@@ -37,6 +35,7 @@ export default function EditPost() {
 
   useEffect(() => {
     fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onChangeHandler = (event) => {
@@ -56,7 +55,7 @@ export default function EditPost() {
   };
 
   const onSubmitHandler = async () => {
-    const res = await axios.put(
+    await axios.put(
       `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
       editInfo,
       config
@@ -125,12 +124,6 @@ const EditPostBox = styled.div`
   height: 670px;
   margin: 20px auto;
 `;
-
-const EditPostTitle = styled.div``;
-const EditPostContent = styled.div``;
-const EditPostFile = styled.div``;
-
-const BtnGroup = styled.div``;
 
 const InputBox = styled.div`
   text-align: center;
