@@ -13,24 +13,31 @@ import axios from "axios";
 export default function EditPost() {
   const { boardname, id } = useParams();
   const navigate = useNavigate();
-  // let res = {};
   const config = {
     headers: { Authorization: getCookieToken() },
   };
 
-  // const func = async () => {
-  //   const res = await axios.get(
-  //     `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
-  //     config
-  //   );
-  // };
+  const [posts, setPosts] = useState(null);
 
-  // // 게시글 조회
-  // useEffect(() => {
-  //   func();
-  // }, []);
+  const [editInfo, setEditInfo] = useState({
+    title: "",
+    content: "",
+  });
 
-  const [editInfo, setEditInfo] = useState({});
+  const fetchPosts = async () => {
+    const data = await axios.get(
+      `http://jdh3340.shop/api/board/${boardname}/id/${id}`
+    );
+
+    setEditInfo({
+      title: data.data.data.title,
+      content: data.data.data.content,
+    });
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;

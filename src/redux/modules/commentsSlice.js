@@ -9,6 +9,7 @@ const config = {
 const initialState = {
   comments: [],
   isLoading: false,
+  isFinish: false,
   error: null,
 };
 
@@ -63,14 +64,12 @@ export const __deleteComment = createAsyncThunk(
 export const __editComment = createAsyncThunk(
   "comments/__editComment",
   async (payload, thunkAPI) => {
-    console.log("asofjaoisdfjaosijf", payload);
     try {
       const data = await axios.put(
         `http://jdh3340.shop/api/board/${payload.boardname}/id/${payload.id}/comment/${payload.commentId}`,
         payload.content,
         config
       );
-      console.log(data);
       return thunkAPI.fulfillWithValue(data.data.comment);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -85,15 +84,18 @@ export const commentsSlice = createSlice({
   extraReducers: {
     [__getComment.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isFinish = false;
     },
 
     [__getComment.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isFinish = true;
       state.comments = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
 
     [__getComment.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isFinish = true;
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
   },

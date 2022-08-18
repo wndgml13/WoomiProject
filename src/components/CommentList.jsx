@@ -8,16 +8,19 @@ import { useParams } from "react-router-dom";
 export default function CommentList() {
   const dispatch = useDispatch();
   const param = useParams();
-  const { comments } = useSelector((state) => state.commentsSlice);
+  const { comments, isFinish } = useSelector((state) => state.commentsSlice);
+
   useEffect(() => {
     dispatch(__getComment(param));
   }, [dispatch, param]);
 
-  return (
-    <>
-      {comments.map((comments) => {
-        return <Comment key={comments.id} comments={comments} />;
-      })}
-    </>
-  );
+  if (isFinish) {
+    return (
+      <>
+        {comments?.map((comment) => {
+          return <Comment key={comment.id} comments={comment} />;
+        })}
+      </>
+    );
+  }
 }

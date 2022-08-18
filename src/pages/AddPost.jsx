@@ -17,12 +17,6 @@ export default function AddPost() {
   const navigate = useNavigate();
 
   const { boardname } = useParams();
-  // const [addPostsInfo, setAddPostsInfo] = useState({
-  //   title: "",
-  //   content: "",
-  //   url: "",
-  //   status: false,
-  // });
 
   const [addPostsInfo, setAddPostsInfo] = useState({
     title: "",

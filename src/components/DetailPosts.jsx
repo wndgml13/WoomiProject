@@ -60,7 +60,7 @@ export default function DetailPosts() {
         <button
           onClick={() => {
             if (getCookieToken()) {
-              navigate(`/${boardname}/editposts/1`);
+              navigate(`/${boardname}/editposts/${id}`);
             }
           }}
         >

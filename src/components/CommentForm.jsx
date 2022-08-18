@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { __getComment, __addComment } from "../redux/modules/commentsSlice";
+import { __addComment } from "../redux/modules/commentsSlice";
 
 export default function CommentForm() {
   const { comments } = useSelector((state) => state.commentsSlice);
@@ -31,12 +31,7 @@ export default function CommentForm() {
   return (
     <StCommentInput>
       댓글입력(아이디 불러와야함)
-      <input
-        type="text"
-        name="content"
-        value={comments.content}
-        onChange={onChangeHandler}
-      />
+      <input type="text" name="content" onChange={onChangeHandler} />
       <button onClick={onSubmitHandler}>댓글쓰기</button>
     </StCommentInput>
   );

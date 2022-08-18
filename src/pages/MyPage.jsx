@@ -18,57 +18,23 @@ export default function MyPage() {
     (state) => state.mypage
   );
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // 회원탈퇴 버튼 클릭 시 Main 페이지로 이동
-  const [editnickname, setEditNickName] = useState(mypage?.nickname); // mypage.nickname을 초기값으로 준다
-  const [nicknamemode, setNickNameMode] = useState(false);
-  const [editpassword, setEditPassWord] = useState("");
-  const [passwordmode, setPassWordMode] = useState(false);
-  const [pastpassword, setpastpassword] = useState("");
-  const [pastpasswordcheck, setPastPassWordCheck] = useState(""); // 재범님 비밀번호 재확인 스테이트 만든것을 비밀번호 재확인 상태 변경중입니다.
-  console.log(mypage);
-  const userinfo = {
-    nickname: editnickname,
-    password: editpassword,
-    pastPassword: pastpassword,
-  };
+  const navigate = useNavigate();
+  const [passwordChknew, setPasswordChkNew] = useState("");
+  const [editToggleMode, setEditToggleMode] = useState(false);
+  const [editUserInfo, setEditUserInfo] = useState({
+    nickname: "",
+    password: "",
+    pastPassword: "",
+  });
 
   const config = {
     headers: { Authorization: getCookieToken() },
   };
 
-  const onClickEditNickName = async () => {
-    if (nicknamemode) {
-      if (pastpassword === pastpasswordcheck) {
-        // 재범님 비밀번호 재확인 스테이트 만든것을 비밀번호 재확인 상태 변경중입니다.
-        setNickNameMode(false);
-        const data = await axios.put(
-          "http://jdh3340.shop/api/user",
-          userinfo,
-          config
-        );
-      }
-    } else {
-      setpastpassword(mypage.password);
-      setNickNameMode(true);
-    }
-  };
-  const onClickEditPassWord = async () => {
-    if (passwordmode) {
-      setPassWordMode(false);
-      const data = await axios.patch(
-        "http://jdh3340.shop/api/user",
-        { password: editpassword },
-        config
-      );
-    } else {
-      setPassWordMode(true);
-    }
-  };
   const onClickDelete = async () => {
     const data = await axios.delete("http://jdh3340.shop/api/user", config);
   };
 
-  // {newpassword:editpassword}
   useEffect(() => {
     dispatch(__getMypage());
   }, [dispatch]);
@@ -80,6 +46,34 @@ export default function MyPage() {
   if (error) {
     return <div>{error.message}</div>;
   }
+  const { nickname, password, pastPassword } = editUserInfo;
+
+  const onChangeHandler = (event) => {
+    const { value, name } = event.target;
+    setEditUserInfo({
+      ...editUserInfo,
+      [name]: value,
+    });
+  };
+
+  const onChangeChkHandler = (event) => {
+    setPasswordChkNew(event.target.value);
+  };
+
+  const toggleBtn = async (event) => {
+    if (editToggleMode) {
+      if (editUserInfo.password === passwordChknew) {
+        setEditToggleMode(false);
+        const data = await axios.put(
+          "http://jdh3340.shop/api/user",
+          editUserInfo,
+          config
+        );
+      }
+    } else {
+      setEditToggleMode(true);
+    }
+  };
   if (isFinish) {
     return (
       <>
@@ -88,53 +82,49 @@ export default function MyPage() {
           <div>ID : {mypage.data.username}</div>
 
           <div>
-            {nicknamemode ? (
+            {editToggleMode ? (
               <TextField
                 type="text"
-                id="outlined-basic"
+                name="nickname"
+                value={nickname}
                 label="새로운 닉네임"
                 variant="outlined"
                 placeholder="새로운 닉네임"
-                onChange={(e) => {
-                  setEditNickName(e.target.value);
-                }}
+                onChange={onChangeHandler}
               />
             ) : (
               <div>닉네임 : {mypage.data.nickname}</div>
             )}
           </div>
 
-          {passwordmode ? (
+          {editToggleMode ? (
             <div>
               <TextField
                 type="text"
-                id="outlined-basic"
+                name="pastPassword"
+                value={pastPassword}
                 label="기존 비밀번호"
                 variant="outlined"
                 placeholder="기존 비밀번호"
-                onChange={(e) => {
-                  setEditPassWord(e.target.value);
-                }}
+                onChange={onChangeHandler}
               />
               <TextField
                 type="text"
-                id="outlined-basic"
+                name="password"
+                value={password}
                 label="새로운 비밀번호"
                 variant="outlined"
                 placeholder="새로운 비밀번호"
-                onChange={(e) => {
-                  setpastpassword(e.target.value);
-                }}
+                onChange={onChangeHandler}
               />
               <TextField
                 type="text"
-                id="outlined-basic"
+                name="passwordChk"
+                value={passwordChknew}
                 label="비밀번호 재확인"
                 variant="outlined"
                 placeholder="비밀번호 재확인"
-                onChange={(e) => {
-                  setPastPassWordCheck(e.target.value); // 재범님 비밀번호 재확인 스테이트 만든것을 비밀번호 재확인 상태 변경중입니다.
-                }}
+                onChange={onChangeChkHandler}
               />
             </div>
           ) : (
@@ -151,22 +141,15 @@ export default function MyPage() {
         >
           회원탈퇴
         </Button>
-        {/* <div>{mypage?.map((todo)=>(
-        <div key={todo.id}></div>
-      ))}</div> */}
-        <Button
-          type="button"
-          variant="outlined"
-          onClick={() => onClickEditNickName(editnickname)}
-        >
+
+        <Button type="button" variant="outlined">
           닉네임 변경
         </Button>
-        <Button
-          type="button"
-          variant="outlined"
-          onClick={() => onClickEditPassWord(editpassword)}
-        >
+        <Button type="button" variant="outlined">
           비밀번호 변경
+        </Button>
+        <Button type="button" variant="outlined" onClick={toggleBtn}>
+          수정하자
         </Button>
       </>
     );
