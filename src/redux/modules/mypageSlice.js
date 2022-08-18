@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+// import { getCookieToken } from "../storage/Cookie";
+import { getCookieToken } from "../../storage/Cookie";
 
+const config = {
+  headers: { Authorization: getCookieToken() },
+  };
 
 const initialState = {
     mypage: null,
@@ -14,7 +19,8 @@ export const __getMypage = createAsyncThunk(
     
     async (payload, thunkAPI) => {
         try {
-            const data = await axios.get('http://localhost:3001/profiles');
+            const data = await axios.get('http://jdh3340.shop/api/user', config);
+            console.log(data);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);

@@ -6,40 +6,53 @@ import React, { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { getCookieToken } from "../storage/Cookie";
+
+import Table from '@mui/material/Table';
 
 // http://jdh3340.shop/api/board/es
-
+// const {boardname} = useParams();
 
 export default function Posts() {
   // const param = useParams();
   const [info, setInfo] = useState(null);
   // console.log(param);
 
+  // const config = {
+  //   headers: { Authorization: getCookieToken() },
+  //   };
+    
+
   const navigate = useNavigate();
   
   const fetchInfo = async () => {
-    const {data} = await axios.get('http://localhost:3001/posts'); // ${boadname}
-    setInfo(data);
+    const data = await axios.get('http://jdh3340.shop/api/board/es/all'); // http://jdh3340.shop/api/board/${boadname}/all
+    console.log(data.data.data);
+    setInfo(data.data.data);
+    
   }
 
   useEffect(() => {
     fetchInfo();
   }, []);
-  
+  console.log(info);
   return (
     <>
+    {/* var today = new Date();
+today.setHours(today.getHours()+9)
+const createdate = today.toISOString().replace('T', ' ').substring(0, 19); */}
       {info?.map(infos => {
           return (
           <List_Container>
             <Post_List >{infos.id}</Post_List>
-            <Post_List >{infos.boardname}</Post_List>
+            <Post_List >{infos.boardName}</Post_List>
             <Post_List >
               <Link to="/Detail">
               {infos.title}
               </Link>
               </Post_List>
-            <Post_List>{infos.username}</Post_List>
-            <Post_List>{infos.createdate}</Post_List>
+            <Post_List>{infos.nickname}</Post_List>
+            <Post_List>{infos.createAt}</Post_List>
           </List_Container>
           );
         })}
