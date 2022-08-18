@@ -35,7 +35,8 @@ export default function EditPost() {
 
   useEffect(() => {
     fetchPosts();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onChangeHandler = (event) => {
     const { value, name } = event.target;

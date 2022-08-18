@@ -14,6 +14,7 @@ export default function Posts() {
   const navigate = useNavigate();
 
   const searchText = useSelector((state) => state.searchSlice);
+  console.log(searchText);
 
   const fetchInfo = async () => {
     const data = await axios.get(
@@ -25,7 +26,8 @@ export default function Posts() {
 
   useEffect(() => {
     fetchInfo();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (boardname === "all") {
     return (

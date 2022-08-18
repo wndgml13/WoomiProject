@@ -15,8 +15,13 @@ export default function Comment({ comments }) {
   let [modalDelete, setModalDelete] = useState(false);
 
   // useEffect(() => {
-  //   dispatch(__getComment());
-  // }, content);
+  //   dispatch(
+  //     __getComment({
+  //       boardname,
+  //       id,
+  //     })
+  //   );
+  // }, [dispatch, boardname, id]);
 
   const onClickDeleteButtonHandler = () => {
     dispatch(
