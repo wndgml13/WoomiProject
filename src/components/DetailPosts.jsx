@@ -4,8 +4,13 @@ import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import axios from 'axios';
 import {useParams} from "react-router-dom";
+import { getCookieToken } from "../storage/Cookie";
 
 export default function DetailPosts() {
+
+  const config = {
+    headers: { Authorization: getCookieToken() },
+    };
 
   // let {id} = useParams();
   
@@ -15,17 +20,17 @@ export default function DetailPosts() {
   const [posts, setPosts] =useState(null);
 
   const fetchPosts = async () => {
-    const data  = await axios.get("http://localhost:3001/posts");
-    setPosts(data.data[0])}; //이부분에 useParam 넣고 싶은데 안됨
+    const data  = await axios.get("http://jdh3340.shop/api/board/es/id/1"); //프론트엔드끼리할것
+    setPosts(data.data.data)}; //이부분에 useParam 넣고 싶은데 안됨
     
     useEffect(()=>{fetchPosts()},[]);
-    
   
   const navigate = useNavigate();
   let [modalDelete, setModalDelete] = useState(false);
 
-  const onClickDeleteButtonHandler = (postId) => {
-    axios.delete(`http://localhost:3001/posts/${posts.id}`);
+  const onClickDeleteButtonHandler = async(postId) => {
+    await axios.delete(`http://jdh3340.shop/api/board/es/id/1`, config)
+    navigate("/postscontainer/es")
   };
 
   return (

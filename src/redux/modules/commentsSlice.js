@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getCookieToken } from "../../storage/Cookie";
+
+const config = {
+    headers: { Authorization: getCookieToken()},
+    };
 
 const initialState = {
   comments: [],
@@ -7,16 +12,13 @@ const initialState = {
   error: null,
 };
 
-//코멘트 가져오기 --> 완료!(고민할 내용 있긴 함)
+//코멘트 가져오기 --> 닉네임과 createDate 가져오는거 백엔드에 문의??
 export const __getComment = createAsyncThunk(
     "comments/__getComment",
     async (payload, thunkAPI) => {
         try{
-            const data = await axios.get ("http://localhost:3001/posts");
-            // console.log(data.data[0].comment) //코멘트 값 이렇게 가져와야 할 것 같은데 어떻게??
-            // console.log(data.data[0].id) //데이터의 포스트(게시글) 아이디 값
-            //console.log(data.data[0].comment)
-            return thunkAPI.fulfillWithValue(data.data[0].comment);
+            const data = await axios.get ("http://jdh3340.shop/api/board/es/id/1");
+            return thunkAPI.fulfillWithValue(data.data.data.comments);
         } catch (error) {
             return thunkAPI.rejectWithValue(error); 
         }
@@ -28,23 +30,21 @@ export const __addComment = createAsyncThunk(
   "comments/__addComment",
   async (payload, thunkAPI) => {
       try{
-          const data = await axios.post  ('http://jdh3340.shop/api/board/es/2');
-          return thunkAPI.fulfillWithValue(data.data[0].comment);
+          const data = await axios.post  ('http://jdh3340.shop/api/board/es/id/1/comment',payload, config);
+          console.log(config)
+          return thunkAPI.fulfillWithValue(data.data.comment);
       } catch (error) {
           return thunkAPI.rejectWithValue(error); 
       }
   }
 );
 
-//코멘트 삭제하기 -> JSON만해결되면 구현
 export const __deleteComment = createAsyncThunk(
   "comments/__deleteComment",
   async (payload, thunkAPI) => {
       try{
-          const data = await axios.delete (`http://localhost:3001/posts/1/comment/${payload}`); //payload가 잘 안됨
-          console.log(payload)
-          return thunkAPI.fulfillWithValue(data.data[0].comment);
-
+          const data = await axios.delete ('http://jdh3340.shop/api/board/es/id/1/comment/1', config);
+          return thunkAPI.fulfillWithValue(data.data.comment);
       } catch (error) {
           return thunkAPI.rejectWithValue(error); 
       }
@@ -56,8 +56,10 @@ export const __editComment = createAsyncThunk(
   "comments/__editComment",
   async (payload, thunkAPI) => {
       try{
-          const data = await axios.patch ("http://localhost:3001/posts");
-          return thunkAPI.fulfillWithValue(data.data[0].comment);
+          const data = await axios.put ('http://jdh3340.shop/api/board/es/id/1/comment/1', payload, config);
+          console.log(data)
+          console.log(payload)
+          return thunkAPI.fulfillWithValue(data.data.comment);
       } catch (error) {
           return thunkAPI.rejectWithValue(error); 
       }
