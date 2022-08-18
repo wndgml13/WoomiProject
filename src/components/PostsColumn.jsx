@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
+
+
 export default function PostsColumn() {
+  
+ 
+
   return (
-    <PostForm>
+  <PostForm>
       <PostLabel>ID</PostLabel>
       <PostLabel>유형</PostLabel>
       <PostLabel>제목</PostLabel>
@@ -18,16 +23,19 @@ const PostForm = styled.div`
   text-align: center;
   border-spacing: 0;
   justify-content: space-around;
-  background-color: #58bfc1;
+  background-color:#58bfc1;
   border-radius: 10px;
   display: flex;
   border-bottom: 2px solid #e8e8e8;
   padding: 10px 5px;
 `;
 
+
 const PostLabel = styled.label`
-  font-size: 16px;
-  font-weight: bold;
-  font-family: "Patua One", cursive;
-  color: #fff;
+  const Post_Label = styled.label`
+font-size: 16px;
+font-weight: bold;
+// font-family: 'Patua One', cursive;
+color:#fff;
+font-style: italic;
 `;
