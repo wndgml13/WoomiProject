@@ -21,7 +21,6 @@ export const __getComment = createAsyncThunk(
       const data = await axios.get(
         `http://jdh3340.shop/api/board/${payload.boardname}/id/${payload.id}`
       );
-      console.log("__getComment is :: ", data);
       return thunkAPI.fulfillWithValue(data.data.data.comments);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -39,7 +38,7 @@ export const __addComment = createAsyncThunk(
         payload,
         config
       );
-      console.log("__addComment is :: ", data);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data.comment);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -55,7 +54,6 @@ export const __deleteComment = createAsyncThunk(
         `http://jdh3340.shop/api/board/${payload.boardname}/id/${payload.id}/comment/${payload.commentId}`,
         config
       );
-      console.log("__deleteComment is :: ", data);
       return thunkAPI.fulfillWithValue(data.data.comment);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -73,7 +71,6 @@ export const __editComment = createAsyncThunk(
         payload.content,
         config
       );
-      console.log("__editComment is :: ", data);
       return thunkAPI.fulfillWithValue(data.data.comment);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

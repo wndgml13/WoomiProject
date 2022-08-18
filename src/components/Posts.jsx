@@ -9,22 +9,17 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getCookieToken } from "../storage/Cookie";
 
-import Table from "@mui/material/Table";
-
 export default function Posts() {
   const [info, setInfo] = useState(null);
   const { boardname } = useParams();
   const navigate = useNavigate();
 
   const searchText = useSelector((state) => state.searchSlice);
-  console.log(searchText);
 
   const fetchInfo = async () => {
     const data = await axios.get(
       `http://jdh3340.shop/api/board/${boardname}/all`
     );
-    console.log("posts:: ", data);
-
     setInfo(data.data.data);
   };
 

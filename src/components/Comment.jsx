@@ -74,12 +74,12 @@ export default function Comment({ comments }) {
         <Button onClick={onEditHandler}>수정</Button>
         <Button
           onClick={() => {
-            setModalDelete(modalDelete == false ? true : false);
+            setModalDelete(modalDelete === false ? true : false);
           }}
         >
           삭제
         </Button>
-        {modalDelete == true ? (
+        {modalDelete === true ? (
           <DeleteModal
             delModal={setModalDelete}
             onClickDeleteButtonHandler={onClickDeleteButtonHandler}

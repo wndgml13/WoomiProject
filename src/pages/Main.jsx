@@ -37,6 +37,7 @@ export default function Main() {
                     onClick={() => navigate("/postscontainer/is")}
                     src={process.env.PUBLIC_URL + "/CARD_ISXX.png"}
                     width="100%"
+                    alt="is"
                     style={{ border: "1px solid #8F8F8F" }}
                   />
                   <StMsgBox>
@@ -67,6 +68,7 @@ export default function Main() {
                     onClick={() => navigate("/postscontainer/in")}
                     src={process.env.PUBLIC_URL + "/CARD_INXX.png"}
                     width="100%"
+                    alt="in"
                     style={{ border: "1px solid #8F8F8F" }}
                   />
                   <StMsgBox>
@@ -97,6 +99,7 @@ export default function Main() {
                     onClick={() => navigate("/postscontainer/es")}
                     src={process.env.PUBLIC_URL + "/CARD_ESXX.png"}
                     width="100%"
+                    alt="es"
                     style={{ border: "1px solid #8F8F8F" }}
                   />
                   <StMsgBox>
@@ -127,6 +130,7 @@ export default function Main() {
                     onClick={() => navigate("/postscontainer/en")}
                     src={process.env.PUBLIC_URL + "/CARD_ENXX.png"}
                     width="100%"
+                    alt="en"
                     style={{ border: "1px solid #8F8F8F" }}
                   />
                   <StMsgBox>
@@ -150,6 +154,7 @@ export default function Main() {
             <img
               src={process.env.PUBLIC_URL + "/logo.png"}
               width="10%"
+              alt="logo"
               style={{ opacity: 0 }}
             />
           </div>

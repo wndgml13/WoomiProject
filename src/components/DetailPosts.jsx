@@ -5,9 +5,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { getCookieToken } from "../storage/Cookie";
 import { Container } from "@mui/material";
-import { margin } from "@mui/system";
-import { createTheme } from "@mui/material/styles";
-import { teal } from "@mui/material/colors";
 
 export default function DetailPosts() {
   const config = {
@@ -39,11 +36,10 @@ export default function DetailPosts() {
   let [modalDelete, setModalDelete] = useState(false);
 
   const onClickDeleteButtonHandler = async (postId) => {
-    const data = await axios.delete(
+    await axios.delete(
       `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
       config
     );
-    console.log("detailpost onClickDeleteButtonHandler :: ", data);
     navigate(`/postscontainer/${boardname}`);
   };
   return (
@@ -78,7 +74,7 @@ export default function DetailPosts() {
             >
               삭제
             </Button>
-            {modalDelete == true ? (
+            {modalDelete === true ? (
               <DeleteModal
                 delModal={setModalDelete}
                 onClickDeleteButtonHandler={onClickDeleteButtonHandler}

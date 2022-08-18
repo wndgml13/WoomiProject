@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import * as React from 'react';
 
 import Swal from "sweetalert2";
@@ -8,6 +9,10 @@ import TextField from '@mui/material/TextField';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+=======
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+>>>>>>> 87fab84698007bd591371c066f77eaf52c878c58
 
 import styled from "styled-components";
 import {useState} from "react";
@@ -69,12 +74,18 @@ const config = {
     
   } 
   const onClickDelete = async () => {
+<<<<<<< HEAD
     const data = await axios.delete('http://jdh3340.shop/api/user', config);
     
     console.log(data);
   }
   
   
+=======
+    await axios.delete("http://jdh3340.shop/api/user", config);
+  };
+
+>>>>>>> 87fab84698007bd591371c066f77eaf52c878c58
   useEffect(() => {
     dispatch(__getMypage());
   }, [dispatch]);
@@ -91,6 +102,7 @@ console.log(mypage.username);
 
   if (error) {
     return <div>{error.message}</div>;
+<<<<<<< HEAD
   };
   if (isFinish) {
     return <>
@@ -159,6 +171,90 @@ console.log(mypage.username);
       }
         
       <Button_Container>
+=======
+  }
+  const { nickname, password, pastPassword } = editUserInfo;
+
+  const onChangeHandler = (event) => {
+    const { value, name } = event.target;
+    setEditUserInfo({
+      ...editUserInfo,
+      [name]: value,
+    });
+  };
+
+  const onChangeChkHandler = (event) => {
+    setPasswordChkNew(event.target.value);
+  };
+
+  const toggleBtn = async (event) => {
+    if (editToggleMode) {
+      if (editUserInfo.password === passwordChknew) {
+        setEditToggleMode(false);
+        await axios.put("http://jdh3340.shop/api/user", editUserInfo, config);
+      }
+    } else {
+      setEditToggleMode(true);
+    }
+  };
+  if (isFinish) {
+    return (
+      <>
+        <PageContainer>
+          <Profile>회원정보 조회</Profile>
+          <div>ID : {mypage.data.username}</div>
+
+          <div>
+            {editToggleMode ? (
+              <TextField
+                type="text"
+                name="nickname"
+                value={nickname}
+                label="새로운 닉네임"
+                variant="outlined"
+                placeholder="새로운 닉네임"
+                onChange={onChangeHandler}
+              />
+            ) : (
+              <div>닉네임 : {mypage.data.nickname}</div>
+            )}
+          </div>
+
+          {editToggleMode ? (
+            <div>
+              <TextField
+                type="text"
+                name="pastPassword"
+                value={pastPassword}
+                label="기존 비밀번호"
+                variant="outlined"
+                placeholder="기존 비밀번호"
+                onChange={onChangeHandler}
+              />
+              <TextField
+                type="text"
+                name="password"
+                value={password}
+                label="새로운 비밀번호"
+                variant="outlined"
+                placeholder="새로운 비밀번호"
+                onChange={onChangeHandler}
+              />
+              <TextField
+                type="text"
+                name="passwordChk"
+                value={passwordChknew}
+                label="비밀번호 재확인"
+                variant="outlined"
+                placeholder="비밀번호 재확인"
+                onChange={onChangeChkHandler}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+        </PageContainer>
+>>>>>>> 87fab84698007bd591371c066f77eaf52c878c58
         <Button
           type="button"
           variant="outlined"
@@ -193,6 +289,7 @@ console.log(mypage.username);
   };
 };
 
+<<<<<<< HEAD
 
 // const Page_Container = styled.div`
 //   // background-color: blue;
@@ -201,6 +298,15 @@ console.log(mypage.username);
 //   margin: 0 auto;
 //   padding: 70px;
 // `;
+=======
+const PageContainer = styled.div`
+  // background-color: blue;
+  max-width: 1200px;
+  min-width: 800px;
+  margin: 0 auto;
+  padding: 70px;
+`;
+>>>>>>> 87fab84698007bd591371c066f77eaf52c878c58
 
 const Profile = styled.div`
 background-color: blue;
