@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { getCookieToken, removeCookieToken } from "../storage/Cookie";
-import styled from "styled-components";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -35,8 +34,12 @@ export default function Header() {
         navigate("postscontainer/en");
         break;
 
+      case "ALL":
+        navigate("postscontainer/all");
+        break;
+
       default:
-        navigate("/postscontainer/all");
+        navigate("/");
         break;
     }
   };

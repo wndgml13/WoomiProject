@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -24,6 +23,7 @@ export default function DetailPosts() {
       `http://jdh3340.shop/api/board/${boardname}/id/${id}`
     ); //프론트엔드끼리할것
     setPosts(data.data.data);
+    console.log("detailpost fetchPosts :: ", data);
   }; //이부분에 useParam 넣고 싶은데 안됨
 
   useEffect(() => {
@@ -34,10 +34,11 @@ export default function DetailPosts() {
   let [modalDelete, setModalDelete] = useState(false);
 
   const onClickDeleteButtonHandler = async (postId) => {
-    await axios.delete(
+    const data = await axios.delete(
       `http://jdh3340.shop/api/board/${boardname}/id/${id}`,
       config
     );
+    console.log("detailpost onClickDeleteButtonHandler :: ", data);
     navigate(`/postscontainer/${boardname}`);
   };
 
@@ -75,7 +76,7 @@ export default function DetailPosts() {
         >
           삭제
         </button>
-        {modalDelete == true ? (
+        {modalDelete === true ? (
           <DeleteModal
             delModal={setModalDelete}
             onClickDeleteButtonHandler={onClickDeleteButtonHandler}

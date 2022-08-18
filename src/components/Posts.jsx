@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import React, { useDispatch, useSelector } from "react-redux";
+import React, { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -19,6 +19,7 @@ export default function Posts() {
     const data = await axios.get(
       `http://jdh3340.shop/api/board/${boardname}/all`
     );
+    console.log("posts:: ", data);
     setInfo(data.data.data);
   };
 
@@ -31,20 +32,20 @@ export default function Posts() {
       <>
         {searchText.search?.map((infos) => {
           return (
-            <List_Container key={infos.id}>
-              <Post_List>{infos.id}</Post_List>
-              <Post_List>{infos.boardName}</Post_List>
-              <Post_List>
+            <ListContainer key={infos.id}>
+              <PostList>{infos.id}</PostList>
+              <PostList>{infos.boardName}</PostList>
+              <PostList>
                 <Link to={`/${boardname}/detail/${infos.id}`}>
                   {infos.title}
                 </Link>
-              </Post_List>
-              <Post_List>{infos.nickname}</Post_List>
-              <Post_List>{infos.createAt}</Post_List>
-            </List_Container>
+              </PostList>
+              <PostList>{infos.nickname}</PostList>
+              <PostList>{infos.createAt}</PostList>
+            </ListContainer>
           );
         })}
-        <Post_btn
+        <Postbtn
           onClick={() => {
             if (getCookieToken()) {
               navigate(`/${boardname}/addposts`);
@@ -52,7 +53,7 @@ export default function Posts() {
           }}
         >
           글쓰기
-        </Post_btn>
+        </Postbtn>
       </>
     );
   } else {
@@ -60,20 +61,20 @@ export default function Posts() {
       <>
         {info?.map((infos) => {
           return (
-            <List_Container key={infos.id}>
-              <Post_List>{infos.id}</Post_List>
-              <Post_List>{infos.boardName}</Post_List>
-              <Post_List>
+            <ListContainer key={infos.id}>
+              <PostList>{infos.id}</PostList>
+              <PostList>{infos.boardName}</PostList>
+              <PostList>
                 <Link to={`/${boardname}/detail/${infos.id}`}>
                   {infos.title}
                 </Link>
-              </Post_List>
-              <Post_List>{infos.nickname}</Post_List>
-              <Post_List>{infos.createAt}</Post_List>
-            </List_Container>
+              </PostList>
+              <PostList>{infos.nickname}</PostList>
+              <PostList>{infos.createAt}</PostList>
+            </ListContainer>
           );
         })}
-        <Post_btn
+        <Postbtn
           onClick={() => {
             if (getCookieToken()) {
               navigate(`/${boardname}/addposts`);
@@ -81,20 +82,20 @@ export default function Posts() {
           }}
         >
           글쓰기
-        </Post_btn>
+        </Postbtn>
       </>
     );
   }
 }
 
-const List_Container = styled.div`
+const ListContainer = styled.div`
   justify-content: space-between;
   display: flex;
   width: 70%;
   margin: 0 auto;
 `;
 
-const Post_List = styled.label`
+const PostList = styled.label`
   width: 70%;
   text-align: center;
   font-size: 16px;
@@ -103,7 +104,7 @@ const Post_List = styled.label`
   font-weight: bold;
 `;
 
-const Post_btn = styled.button`
+const Postbtn = styled.button`
   background-color: #4dccc6;
   background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%);
   line-height: 42px;

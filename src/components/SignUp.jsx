@@ -15,6 +15,7 @@ export default function SignUp() {
   const [passwordError, setPasswordError] = useState(false);
   const [checkPasswordError, setCheckPasswordError] = useState(false);
   const [nickNameError, setNickNameError] = useState(false);
+  console.log(nickNameError);
 
   const onChangeUserId = (event) => {
     const userIdRegex = /^[A-Za-z0-9+]{5,}$/;
@@ -81,7 +82,7 @@ export default function SignUp() {
   const onSubmitHandler = async () => {
     if (validation()) {
       try {
-        const res = await axios.post("http://jdh3340.shop/api/user/register", {
+        await axios.post("http://jdh3340.shop/api/user/register", {
           username: userId,
           password,
           nickname,

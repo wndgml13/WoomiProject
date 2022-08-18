@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
@@ -10,7 +9,6 @@ import { __getMypage } from "../redux/modules/mypageSlice";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import { Table } from "react-bootstrap";
 import { getCookieToken } from "../storage/Cookie";
 
 export default function MyPage() {
@@ -33,6 +31,7 @@ export default function MyPage() {
 
   const onClickDelete = async () => {
     const data = await axios.delete("http://jdh3340.shop/api/user", config);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -69,6 +68,7 @@ export default function MyPage() {
           editUserInfo,
           config
         );
+        console.log(data);
       }
     } else {
       setEditToggleMode(true);
@@ -77,7 +77,7 @@ export default function MyPage() {
   if (isFinish) {
     return (
       <>
-        <Page_Container>
+        <PageContainer>
           <Profile>회원정보 조회</Profile>
           <div>ID : {mypage.data.username}</div>
 
@@ -130,7 +130,7 @@ export default function MyPage() {
           ) : (
             ""
           )}
-        </Page_Container>
+        </PageContainer>
         <Button
           type="button"
           variant="outlined"
@@ -156,7 +156,7 @@ export default function MyPage() {
   }
 }
 
-const Page_Container = styled.div`
+const PageContainer = styled.div`
   // background-color: blue;
   max-width: 1200px;
   min-width: 800px;
@@ -175,19 +175,4 @@ const Profile = styled.div`
   border-radius: 10px;
   padding: 10px;
   font-weight: bold;
-`;
-
-const Edit_Delete_btn = styled.button`
-  float: right;
-  // flex-grow: 1;
-  // margin-left: auto;
-  // display: flex;
-  // justify-content: space-between;
-  // position: absolute;
-  cursor: pointer;
-  // content: "";
-  // right: 0;
-  // float-right: 10px;
-  margin: 5px;
-  margin-top: 20%;
 `;

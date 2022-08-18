@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  __getComment,
-  __deleteComment,
-  __editComment,
-} from "../redux/modules/commentsSlice";
+import { __deleteComment, __editComment } from "../redux/modules/commentsSlice";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
@@ -50,6 +46,7 @@ export default function Comment({ comments }) {
   var today = new Date();
   today.setHours(today.getHours() + 9);
   const createAt = today.toISOString().replace("T", " ").substring(0, 10);
+  console.log(createAt);
 
   return (
     <StCommentList>
@@ -70,7 +67,7 @@ export default function Comment({ comments }) {
       >
         삭제
       </button>
-      {modalDelete == true ? (
+      {modalDelete === true ? (
         <DeleteModal
           delModal={setModalDelete}
           onClickDeleteButtonHandler={onClickDeleteButtonHandler}

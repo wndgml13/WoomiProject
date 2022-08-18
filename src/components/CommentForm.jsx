@@ -9,7 +9,7 @@ export default function CommentForm() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const param = useParams();
-
+  console.log(comments, content);
   //코멘트 작성 후 페이지 업데이트
   // useEffect(() => {
   //   dispatch(__getComment());
