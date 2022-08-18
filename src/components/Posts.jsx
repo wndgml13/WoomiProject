@@ -68,8 +68,9 @@ const createdate = today.toISOString().replace('T', ' ').substring(0, 19); */}
 const List_Container = styled.div`
 justify-content: space-between;
 display: flex;
-width: 70%;
+width: 69%;
 margin: 0 auto;
+
 `;
 
 const Post_List = styled.label`
@@ -78,7 +79,13 @@ const Post_List = styled.label`
   font-size: 16px;
   border-bottom: 2px solid #e8e8e8;
   padding: 10px 5px;
-  font-weight: bold;
+  // font-weight: bold;
+  font-style: italic;
+  background-color: #D9D9D9;
+  // color: red;
+  border-radius: 10px;
+
+  
 `;
 
 const Post_btn = styled.button`
@@ -97,8 +104,10 @@ const Post_btn = styled.button`
     inset -4px -4px 6px 0 rgba(255,255,255,.9),
     inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
   transition: all 0.3s ease;
-  font-family: 'Patua One', cursive;
+  font-weight: bold;
   color:#fff;
   font-size: 20px;
+  bottom: auto;
+
   
 `;
