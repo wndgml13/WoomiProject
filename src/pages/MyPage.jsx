@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
@@ -31,7 +30,7 @@ export default function MyPage() {
   };
 
   const onClickDelete = async () => {
-    const data = await axios.delete("http://jdh3340.shop/api/user", config);
+    await axios.delete("http://jdh3340.shop/api/user", config);
   };
 
   useEffect(() => {
@@ -63,11 +62,7 @@ export default function MyPage() {
     if (editToggleMode) {
       if (editUserInfo.password === passwordChknew) {
         setEditToggleMode(false);
-        const data = await axios.put(
-          "http://jdh3340.shop/api/user",
-          editUserInfo,
-          config
-        );
+        await axios.put("http://jdh3340.shop/api/user", editUserInfo, config);
       }
     } else {
       setEditToggleMode(true);
@@ -76,7 +71,7 @@ export default function MyPage() {
   if (isFinish) {
     return (
       <>
-        <Page_Container>
+        <PageContainer>
           <Profile>회원정보 조회</Profile>
           <div>ID : {mypage.data.username}</div>
 
@@ -129,7 +124,7 @@ export default function MyPage() {
           ) : (
             ""
           )}
-        </Page_Container>
+        </PageContainer>
         <Button
           type="button"
           variant="outlined"
@@ -149,7 +144,7 @@ export default function MyPage() {
   }
 }
 
-const Page_Container = styled.div`
+const PageContainer = styled.div`
   // background-color: blue;
   max-width: 1200px;
   min-width: 800px;

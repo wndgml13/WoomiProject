@@ -15,7 +15,6 @@ export default function SignUp() {
   const [passwordError, setPasswordError] = useState(false);
   const [checkPasswordError, setCheckPasswordError] = useState(false);
   const [nickNameError, setNickNameError] = useState(false);
-  console.log(nickNameError);
 
   const onChangeUserId = (event) => {
     const userIdRegex = /^[A-Za-z0-9+]{5,}$/;
@@ -73,20 +72,17 @@ export default function SignUp() {
       !passwordError &&
       !checkPasswordError
     ) {
-      console.log("ddd");
+      console.log(nickNameError);
       return true;
     } else {
-      console.log("aaaa");
       return false;
     }
   };
 
   const onSubmitHandler = async () => {
-    console.log("dkdkdkdkdkdk");
     if (validation()) {
       try {
-        console.log("dadadfsa");
-        const data = await axios.post("http://jdh3340.shop/api/user/register", {
+        await axios.post("http://jdh3340.shop/api/user/register", {
           username: userId,
           password,
           nickname,

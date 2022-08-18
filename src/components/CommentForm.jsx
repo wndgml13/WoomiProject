@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import commentsSlice, {
-  __getComment,
-  __addComment,
-} from "../redux/modules/commentsSlice";
+import { __addComment } from "../redux/modules/commentsSlice";
 import { Container, TextField } from "@mui/material";
 
 export default function CommentForm() {
@@ -13,7 +10,7 @@ export default function CommentForm() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const param = useParams();
-  console.log(comments, content);
+
   //코멘트 작성 후 페이지 업데이트
   // useEffect(() => {
   //   dispatch(__getComment());
@@ -27,7 +24,7 @@ export default function CommentForm() {
     // var today = new Date();
     // today.setHours(today.getHours()+9)
     // const createAt = today.toISOString().replace('T', ' ').substring(0, 10);
-
+    console.log(comments, content);
     dispatch(__addComment(param));
     setContent("");
   };
