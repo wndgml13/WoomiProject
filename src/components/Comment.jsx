@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __getComment, editComment, __addComment, __deleteComment, __editComment} from "../redux/modules/commentsSlice";
 import styled from "styled-components";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { TextField } from "@mui/material";
 
 export default function Comment({comments}) {
 
@@ -43,31 +48,76 @@ export default function Comment({comments}) {
   console.log(comments.createAt)
   
   return (
+    
     <StCommentList>
-      <span><b>{comments.nickname}</b></span>
-      <span>{comments.createAt}</span>
+      <div><b>{comments.nickname}</b> {comments.createAt} </div>
       {isEditable===true?(
-        <input type="text" value={content} onChange={onChangeHandler}></input>
-      ):(<div>{comments.content}</div>)}
-      <button onClick={onEditHandler}>수정</button>
-      <button onClick={()=>{setModalDelete(modalDelete==false?true:false)}}>삭제</button>
-        {modalDelete==true?<DeleteModal delModal={setModalDelete} onClickDeleteButtonHandler={onClickDeleteButtonHandler}/>:null}
+        <TextField id="outlined-basic" variant="outlined" 
+        value={content} onChange={onChangeHandler}/>
+      ):(<div style={{marginLeft:10}}>{comments.content}</div>)}
+    
+      <div>
+          <Button onClick={onEditHandler}>수정</Button>
+          <Button onClick={()=>{setModalDelete(modalDelete==false?true:false)}}>
+            삭제</Button>
+        {modalDelete==true?<DeleteModal delModal={setModalDelete} 
+        onClickDeleteButtonHandler={onClickDeleteButtonHandler}/>:null}
+    </div>  
     </StCommentList>
   );
 }
 
 function DeleteModal(props){
   return(
-  <div className="Modal">
-          정말 삭제하시겠습니까? 
-          <button onClick={props.onClickDeleteButtonHandler}>삭제</button> <button onClick={()=>{props.delModal(false)}}>취소</button>
-  </div>)
+    <StModal>
+    <div>
+        <div>정말 삭제하시겠습니까?</div>
+        <Button2 style={{float: "right", marginRight: "2%", marginTop:1}} onClick={props.onClickDeleteButtonHandler}>삭제</Button2> 
+        <Button2 style={{float: "right", marginRight: "2%", marginTop:1}} onClick={()=>{props.delModal(false)}}>취소</Button2> 
+    </div>
+    </StModal>
+  )
 }
 
+
 const StCommentList = styled.div`
-  width: 600px;
+  float: "right";
+  width: 100%;
   height: 50px;
-  border: 1px solid black;
   border-radius: 2px;
   padding: 20px;
+  margin-bottom: 30px;
+`;
+
+const StModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 60px;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 10px;
+  background-color: white;
+`;
+
+const Button = styled.button`
+  float: "right";
+  margin-right: "2%";
+  margin-top:"1%";
+  border: none;
+  background-color: #224a48;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: white;
+  margin-left: 5px;
+`;
+
+const Button2 = styled.button`
+  border: none;
+  background-color: #8fa5a4;
+  padding: 8px 16px;
+  border-radius: 5px;
+  color: #444444;
 `;
